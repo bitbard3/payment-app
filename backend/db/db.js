@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-require('dotenv').config()
-
+import dotenv from 'dotenv';
+dotenv.config();
 mongoose.connect(process.env.DB_URL)
 
 const userSchmea = mongoose.Schema({
