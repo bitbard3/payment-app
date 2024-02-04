@@ -31,6 +31,4 @@ const userSchmea = mongoose.Schema({
         maxLength: 50
     }
 })
-const User = mongoose.model('User', userSchmea)
-
-export default User
+export const User = mongoose.model('User', userSchmea)
