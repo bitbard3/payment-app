@@ -1,4 +1,4 @@
-import { User } from "../db/db";
+import { User } from "../db/db.js";
 
 export async function userExist(req, res, next) {
     const username = req.body.username

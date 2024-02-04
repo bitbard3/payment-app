@@ -1,5 +1,5 @@
 import { User } from "../db/db";
-import { userSignupSchema } from "./validations/user.validation";
+import { userSignupSchema } from "./validations/user.validation.js";
 
 const signup = (req, res) => {
     const validInput = userSignupSchema.safeParse(req.body)
