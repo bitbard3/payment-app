@@ -1,9 +1,10 @@
-import { User } from "../db/db";
+import { User } from "../db/db.js";
 import { userSchema } from "./validations/user.validation.js";
 import jwt from 'jsonwebtoken'
-require('dotenv').config()
+import dotenv from 'dotenv';
+dotenv.config()
 
-const signup = (req, res) => {
+export const signup = (req, res) => {
     const validInput = userSchema.safeParse(req.body)
     const userExist = req.user
     if (!validInput.success) {
@@ -25,8 +26,8 @@ const signup = (req, res) => {
         return
     }
 }
-const login = (req, res) => {
-    const validInput = userSchema.pick({ username: true, password: true })
+export const login = (req, res) => {
+    const validInput = userSchema.pick({ username: true, password: true }).safeParse(req.body)
     const userExist = req.user
     if (!validInput.success) {
         res.status(411).json({ msg: "Incorrect Input" })
