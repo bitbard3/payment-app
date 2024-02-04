@@ -1,6 +1,4 @@
 import express from 'express';
-import { userRouter } from './user.routes.js'
-const app = express()
+import userRouter from './user.routes.js'
 export const router = express.Router()
-
-app.use('/user', userRouter)
+router.use('/user', userRouter)
