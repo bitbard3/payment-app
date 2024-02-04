@@ -6,3 +6,9 @@ export const userSchema = z.object({
     firstName: z.string().max(50).trim(),
     lastName: z.string().max(50).trim()
 })
+
+export const userUpdateSchema = z.object({
+    password: z.string().min(4).optional(),
+    firstName: z.string().max(50).trim().optional(),
+    lastName: z.string().max(50).trim().optional()
+})
