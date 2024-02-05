@@ -34,7 +34,7 @@ export const login = (req, res) => {
         return
     }
     if (!userExist) {
-        res.status(411).json({ msg: "User doesn't exist" })
+        res.status(411).json({ msg: "User doesn't exist/ Password is Incorrect" })
         return
     }
     const token = jwt.sign({ username: req.body.username }, process.env.JWT_SECRET)
