@@ -37,7 +37,7 @@ export const login = (req, res) => {
         res.status(411).json({ msg: "User doesn't exist" })
         return
     }
-    const token = jwt.sign(req.body.username, process.env.JWT_SECRET)
+    const token = jwt.sign({ username: req.body.username }, process.env.JWT_SECRET)
     res.json({ token: token })
 }
 export const update = async (req, res) => {
@@ -46,10 +46,10 @@ export const update = async (req, res) => {
         res.status(411).json({ msg: "Please provide invalid input" })
         return
     }
-    const user = req.user
+    const username = req.username
     try {
         await User.updateOne({
-            username: user
+            username: username
         }, req.body)
         res.json({ msg: "User updated successfully" })
         return
