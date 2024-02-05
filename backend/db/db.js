@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 mongoose.connect(process.env.DB_URL)
 
-const userSchmea = mongoose.Schema({
+const userSchema = mongoose.Schema({
     username: {
         type: String,
         required: true,
@@ -31,4 +31,19 @@ const userSchmea = mongoose.Schema({
         maxLength: 50
     }
 })
-export const User = mongoose.model('User', userSchmea)
+
+const bankSchema = mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    balance: {
+        type: Number,
+        required: true
+    }
+})
+
+
+export const User = mongoose.model('User', userSchema)
+export const Account = mongoose.model('Account', bankSchema)
