@@ -11,18 +11,23 @@ export const signup = (req, res) => {
         res.status(411).json({ msg: "Incorrect Inputs" })
         return
     }
-    if (!userExist) {
-        User.create({
-            username: req.body.username,
-            password: req.body.password,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName
-        })
-        res.json({ msg: "User created" })
-        return
-    }
-    else {
-        res.status(409).json({ msg: "User already exist" })
+    try {
+        if (!userExist) {
+            User.create({
+                username: req.body.username,
+                password: req.body.password,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName
+            })
+            res.json({ msg: "User created" })
+            return
+        }
+        else {
+            res.status(409).json({ msg: "User already exist" })
+            return
+        }
+    } catch (error) {
+        res.status(500).json({ msg: "Internal server error" })
         return
     }
 }
@@ -55,6 +60,7 @@ export const update = async (req, res) => {
         return
     } catch (error) {
         res.status(500).json({ msg: "Internal server error" })
+        return
     }
 }
 export const bulk = async (req, res) => {
