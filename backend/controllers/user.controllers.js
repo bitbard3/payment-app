@@ -57,3 +57,27 @@ export const update = async (req, res) => {
         res.status(500).json({ msg: "Internal server error" })
     }
 }
+export const bulk = async (req, res) => {
+    const filter = req.query.filter || ''
+    try {
+        const users = await User.find({
+            $or:
+                [
+                    { 'firstName': { '$regex': new RegExp(filter, "i") } },
+                    { 'lastName': { '$regex': new RegExp(filter, "i") } }
+                ]
+        })
+        const filterUser = users.map((user) => {
+            return {
+                _id: user._id,
+                username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName
+            }
+        })
+        res.json(filterUser)
+    } catch (error) {
+        res.status(500).json({ msg: "Internal server error" })
+        return
+    }
+}
