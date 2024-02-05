@@ -1,36 +1,48 @@
-import { User } from "../db/db.js";
+import { Account, User } from "../db/db.js";
+import mongoose from 'mongoose'
 import { userSchema, userUpdateSchema } from "./validations/user.validation.js";
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv';
 dotenv.config()
-
-export const signup = (req, res) => {
+export const signup = async (req, res) => {
     const validInput = userSchema.safeParse(req.body)
     const userExist = req.user
     if (!validInput.success) {
         res.status(411).json({ msg: "Incorrect Inputs" })
         return
     }
+    const session = await mongoose.startSession()
+    session.startTransaction()
     try {
         if (!userExist) {
-            User.create({
+            var user = await User.create([{
                 username: req.body.username,
                 password: req.body.password,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName
-            })
-            res.json({ msg: "User created" })
-            return
+            }], { session: session })
         }
         else {
-            res.status(409).json({ msg: "User already exist" })
-            return
+            session.abortTransaction()
+            return res.status(409).json({ msg: "User already exist" })
         }
+        const userId = user[0]._id
+        await Account.create([{ userId, balance: parseFloat((Math.random() * 1000).toFixed(2)) }], { session: session })
+        await session.commitTransaction()
+        return res.json({ msg: "User created" })
     } catch (error) {
-        res.status(500).json({ msg: "Internal server error" })
-        return
+        await session.abortTransaction()
+        return res.status(400).json({ msg: "Error occured" })
     }
+    finally {
+        await session.endSession();
+    }
+
+
 }
+
+
+
 export const login = (req, res) => {
     const validInput = userSchema.pick({ username: true, password: true }).safeParse(req.body)
     const userExist = req.user
