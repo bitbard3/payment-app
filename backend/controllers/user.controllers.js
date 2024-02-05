@@ -1,5 +1,5 @@
 import { User } from "../db/db.js";
-import { userSchema } from "./validations/user.validation.js";
+import { userSchema, userUpdateSchema } from "./validations/user.validation.js";
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv';
 dotenv.config()
@@ -39,4 +39,21 @@ export const login = (req, res) => {
     }
     const token = jwt.sign(req.body.username, process.env.JWT_SECRET)
     res.json({ token: token })
+}
+export const update = async (req, res) => {
+    const validInput = userUpdateSchema.safeParse(req.body)
+    if (!validInput.success) {
+        res.status(411).json({ msg: "Please provide invalid input" })
+        return
+    }
+    const user = req.user
+    try {
+        await User.updateOne({
+            username: user
+        }, req.body)
+        res.json({ msg: "User updated successfully" })
+        return
+    } catch (error) {
+        res.status(500).json({ msg: "Internal server error" })
+    }
 }
