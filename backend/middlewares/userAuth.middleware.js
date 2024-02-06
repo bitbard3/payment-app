@@ -12,6 +12,7 @@ export function validUser(req, res, next) {
     try {
         const jwtDecoded = jwt.decode(token, process.env.JWT_SECRET)
         req.username = jwtDecoded.username
+        req.userId = jwtDecoded.userId
         next()
     } catch (error) {
         res.status(403).json({ msg: "Not authorizated" })

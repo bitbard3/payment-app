@@ -29,7 +29,8 @@ export const signup = async (req, res) => {
         const userId = user[0]._id
         await Account.create([{ userId, balance: parseFloat((Math.random() * 1000).toFixed(2)) }], { session: session })
         await session.commitTransaction()
-        return res.json({ msg: "User created" })
+        const token = jwt.sign({ username: req.body.username, userId }, process.env.JWT_SECRET)
+        return res.json({ msg: "User created", token })
     } catch (error) {
         await session.abortTransaction()
         return res.status(400).json({ msg: "Error occured" })
@@ -54,8 +55,6 @@ export const login = (req, res) => {
         res.status(411).json({ msg: "User doesn't exist/ Password is Incorrect" })
         return
     }
-    const token = jwt.sign({ username: req.body.username }, process.env.JWT_SECRET)
-    res.json({ token: token })
 }
 export const update = async (req, res) => {
     const validInput = userUpdateSchema.safeParse(req.body)
