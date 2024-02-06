@@ -10,7 +10,7 @@ export function validUser(req, res, next) {
     }
     const token = header.split(' ')[1]
     try {
-        const jwtDecoded = jwt.decode(token, process.env.JWT_SECRET)
+        const jwtDecoded = jwt.verify(token, process.env.JWT_SECRET)
         req.username = jwtDecoded.username
         req.userId = jwtDecoded.userId
         next()
