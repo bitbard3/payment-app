@@ -91,6 +91,8 @@ export const bulk = async (req, res) => {
                 firstName: user.firstName,
                 lastName: user.lastName
             }
+        }).filter((user) => {
+            return user._id != req.userId
         })
         res.json(filterUser)
     } catch (error) {
