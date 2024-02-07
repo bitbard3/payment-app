@@ -6,9 +6,7 @@ import { userLogin } from '../middlewares/userLogin.middleware.js'
 
 const router = express.Router()
 
-router.get('/', (req, res) => {
-    res.json({ msg: "hi" })
-})
+
 router.post('/signup', userExist, signup)
 router.post('/login', userLogin, login)
 router.put('/', validUser, update)
