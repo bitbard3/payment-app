@@ -1,5 +1,6 @@
 import { Account } from "../db/db.js"
 import mongoose from 'mongoose'
+import { transferSchmea } from "./validations/account.validation.js"
 
 
 export const balance = async (req, res) => {
@@ -13,6 +14,10 @@ export const balance = async (req, res) => {
 }
 export const transfer = async (req, res) => {
     const userId = req.userId
+    const validInput = transferSchmea.safeParse(req.body)
+    if (!validInput.success) {
+        return res.status(422).json({ msg: "Invalid input" })
+    }
     const session = await mongoose.startSession()
     session.startTransaction()
     try {
