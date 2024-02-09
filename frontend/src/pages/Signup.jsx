@@ -3,12 +3,12 @@ import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import Form from "../components/Form";
 
 const icons = [
-  { icon: faUser, pxIcon: "3.5", pyIcon: "2" },
-  { icon: faEnvelope, pxIcon: "3.5", pyIcon: "2" },
+  { icon: faUser, pxIcon: "px-3.5", pyIcon: "py-2" },
+  { icon: faEnvelope, pxIcon: "px-3", pyIcon: "py-2" },
 ];
 const inputs = [
-  { type: "text", placeholder: "First Name", mtInput: "20" },
-  { type: "text", placeholder: "Last Name", mtInput: "10" },
+  { type: "text", placeholder: "First Name", mtInput: "mt-20" },
+  { type: "text", placeholder: "Last Name", mtInput: "mt-10" },
 ];
 export const Signup = () => {
   return (
