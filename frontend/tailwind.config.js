@@ -10,8 +10,9 @@ export default {
         primary: '#AFDA52',
         secondary: '#A067F5',
         dark: '#0A041C',
-        light: '#FEFEFE'
-      }
+        light: '#FEFEFE',
+        box: '#1F2A46',
+      },
     },
   },
   plugins: [],
