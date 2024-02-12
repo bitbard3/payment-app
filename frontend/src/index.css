@@ -91,7 +91,13 @@
     offset-path: rect(0% auto 100% auto);
     background: radial-gradient(#b3e93f, #bbff27, transparent);
   }
-
+  .slide {
+    transition: all 0.5s;
+  }
+  .slide:hover {
+    box-shadow: inset 4.5rem 0 0 0 #a067f5;
+    transform: scale(110%);
+  }
   @keyframes move {
     0% {
       offset-distance: 0%;
