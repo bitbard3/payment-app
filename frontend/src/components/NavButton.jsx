@@ -7,11 +7,11 @@ export default function NavButton() {
   return (
     <button
       onClick={() => setSidebar((p) => !p)}
-      className="flex flex-col justify-center items-center gap-1"
+      className="flex flex-col justify-center items-center gap-0.5"
     >
       <span
         className={`dark:bg-white bg-light block transition-all duration-300 ease-out  h-[2px] w-8 rounded-sm ${
-          !sideBar ? "rotate-45 translate-y-2" : "-translate-y-1"
+          !sideBar ? "rotate-45 translate-y-1.5" : "-translate-y-1"
         }`}
       ></span>
       <span
@@ -23,7 +23,7 @@ export default function NavButton() {
       <span
         className={`dark:bg-white bg-light block transition-all duration-300 ease-out 
                     h-[2px] w-8 rounded-sm ${
-                      !sideBar ? "-rotate-45 -translate-y-2" : "translate-y-1"
+                      !sideBar ? "-rotate-45 -translate-y-1.5" : "translate-y-1"
                     }`}
       ></span>
     </button>
