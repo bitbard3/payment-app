@@ -36,7 +36,7 @@ export default function Dashboard() {
       <div className="bg-dark h-screen w-screen grid grid-rows-9 grid-cols-12 relative overflow-hidden">
         <div
           className={`col-span-2 bg-box bg-opacity-40 row-span-10 hidden ${
-            !sideBar ? `xl:block` : `hidden`
+            !sideBar ? `hidden` : `xl:block `
           }`}
         >
           <div className="flex flex-col px-3 gap-10 h-full">
@@ -45,7 +45,7 @@ export default function Dashboard() {
         </div>
         <div
           className={`row-span-1 col-span-12  bg-box bg-opacity-30 ${
-            !sideBar ? `xl:col-span-10` : `col-span-12`
+            !sideBar ? ` col-span-12` : `xl:col-span-10`
           }`}
         >
           <Header
@@ -56,7 +56,7 @@ export default function Dashboard() {
         </div>
         <div
           className={`col-span-12 bg-box bg-opacity-45 row-span-3 mt-10 lg:mx-10 md:rounded-2xl ${
-            !sideBar ? `xl:col-span-10` : `col-span-12`
+            !sideBar ? ` col-span-12` : `xl:col-span-10`
           }`}
         >
           <Card items={cardItems}></Card>
@@ -64,7 +64,7 @@ export default function Dashboard() {
 
         <div
           className={` col-span-12 row-span-5 mt-10 bg-box bg-opacity-45 md:rounded-2xl lg:mx-10 mb-5 ${
-            !sideBar ? `xl:col-span-10` : `col-span-12`
+            !sideBar ? ` col-span-12` : `xl:col-span-10`
           }`}
         >
           <Money users={userList}></Money>
@@ -75,6 +75,15 @@ export default function Dashboard() {
         <div className="absolute h-1/3  blur-[500px] bg-opacity-30  w-1/5 bg-secondary left-[40%] -top-20"></div>
         <div className="absolute h-1/3  blur-[500px] bg-opacity-20  w-1/5 bg-secondary left-[30%] -bottom-52"></div>
         <div className="absolute h-1/3  blur-[500px] bg-opacity-30 w-1/5 bg-secondary -right-20 top-[40%]"></div>
+        <div
+          className={`absolute h-full xl:hidden bg-[#121229] w-1/2 ${
+            !sideBar ? `hidden` : ``
+          }`}
+        >
+          <div className="md:ml-14 ml-4">
+            <NavItemsList navItems={navitems}></NavItemsList>
+          </div>
+        </div>
       </div>
     </div>
   );
