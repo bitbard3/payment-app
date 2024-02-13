@@ -26,29 +26,28 @@ const userList = [
   { firstName: "Chirag", lastName: "Lalwani" },
   { firstName: "Jalaj", lastName: "Daga" },
   { firstName: "Harkirat", lastName: "Singh" },
-  { firstName: "Virat", lastName: "Kholi" },
 ];
 export default function Dashboard() {
   return (
     <div>
       <div className="bg-dark h-screen w-screen grid grid-rows-9 grid-cols-12 relative overflow-hidden">
-        <div className="col-span-2 bg-box bg-opacity-40 row-span-10">
+        <div className="col-span-2 bg-box bg-opacity-40 row-span-10 hidden xl:block">
           <div className="flex flex-col px-3 gap-10 h-full">
             <NavItemsList navItems={navitems}></NavItemsList>
           </div>
         </div>
-        <div className="row-span-1 col-span-10 bg-box bg-opacity-30">
+        <div className="row-span-1 xl:col-span-10 col-span-12 bg-box bg-opacity-30">
           <Header
             icon={faUserRegular}
             text={"Dashboard"}
             user={"Ansh"}
           ></Header>
         </div>
-        <div className="col-span-10 bg-box bg-opacity-45 row-span-3 mt-10 mx-10 rounded-2xl">
+        <div className="col-span-12 xl:col-span-10 bg-box bg-opacity-45 row-span-3 mt-10 lg:mx-10 md:rounded-2xl">
           <Card items={cardItems}></Card>
         </div>
 
-        <div className="col-span-10 row-span-5 mt-10 bg-box bg-opacity-45 rounded-2xl mx-10 mb-5">
+        <div className="col-span-12 xl:col-span-10 row-span-5 mt-10 bg-box bg-opacity-45 md:rounded-2xl lg:mx-10 mb-5">
           <Money users={userList}></Money>
         </div>
 
