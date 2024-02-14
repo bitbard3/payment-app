@@ -7,7 +7,7 @@ export default function NavItems({ icon, text, navlink }) {
       <NavLink to={navlink}>
         <div
           className="flex items-center gap-3.5 xl:px-10 active:bg-primary active:bg-opacity-10 active:border-r-primary active:border-r-[4px] 
-      py-2 text-neutral-400 opacity-60 active:opacity-100 hover:bg-neutral-400 hover:bg-opacity-10 delay-75 active:text-primary nav"
+      py-2 text-neutral-400 opacity-60 active:opacity-100 hover:bg-neutral-400 hover:bg-opacity-10 delay-75 active:text-primary nav  pl-7 md:pl-[4.3rem]"
         >
           <FontAwesomeIcon icon={icon} className="" />
           <span className=" pt-[3.5px] font-medium">{text}</span>

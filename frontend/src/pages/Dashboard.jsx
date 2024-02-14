@@ -68,9 +68,7 @@ export default function Dashboard() {
             !sideBar ? `hidden` : ``
           }`}
         >
-          <div className="md:ml-[4.3rem] ml-7">
-            <NavItemsList></NavItemsList>
-          </div>
+          <NavItemsList></NavItemsList>
         </div>
       </div>
     </div>
