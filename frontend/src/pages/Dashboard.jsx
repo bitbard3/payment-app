@@ -1,10 +1,4 @@
 import React from "react";
-import {
-  faHouse,
-  faWallet,
-  faUser,
-  faMoneyBill,
-} from "@fortawesome/free-solid-svg-icons";
 import { faUser as faUserRegular } from "@fortawesome/free-regular-svg-icons";
 import NavItemsList from "../components/NavItemsList";
 import Card from "../components/Card";
@@ -12,12 +6,6 @@ import Money from "../components/Money";
 import Header from "../components/Header";
 import { useRecoilValue } from "recoil";
 import { sideBarOpen } from "../stores/atom/sideBar";
-const navitems = [
-  { icon: faHouse, text: "Dashboard" },
-  { icon: faMoneyBill, text: "Send Money" },
-  { icon: faWallet, text: "Transactions" },
-  { icon: faUser, text: "Account" },
-];
 const cardItems = [
   { heading: "Balance", value: "1000" },
   { heading: "Transactions", value: "23" },
@@ -39,8 +27,8 @@ export default function Dashboard() {
             !sideBar ? `hidden` : `xl:block `
           }`}
         >
-          <div className="flex flex-col px-3 gap-10 h-full">
-            <NavItemsList navItems={navitems}></NavItemsList>
+          <div className="flex flex-col gap-10 h-full">
+            <NavItemsList></NavItemsList>
           </div>
         </div>
         <div
@@ -80,8 +68,8 @@ export default function Dashboard() {
             !sideBar ? `hidden` : ``
           }`}
         >
-          <div className="md:ml-14 ml-4">
-            <NavItemsList navItems={navitems}></NavItemsList>
+          <div className="md:ml-[4.3rem] ml-7">
+            <NavItemsList></NavItemsList>
           </div>
         </div>
       </div>

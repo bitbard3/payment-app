@@ -107,4 +107,10 @@
       offset-distance: 100%;
     }
   }
+  .active .nav {
+    background-color: rgb(42, 46, 52);
+    border-right: 4px solid #afda52;
+    opacity: 100;
+    color: #afda52;
+  }
 }
