@@ -6,6 +6,8 @@ import Money from "../components/Money";
 import Header from "../components/Header";
 import { useRecoilValue } from "recoil";
 import { sideBarOpen } from "../stores/atom/sideBar";
+import MobileNav from "../components/MobileNav";
+import Gradients from "../components/Gradients";
 const cardItems = [
   { heading: "Balance", value: "1000" },
   { heading: "Transactions", value: "23" },
@@ -23,7 +25,7 @@ export default function Dashboard() {
     <div>
       <div className="bg-dark h-screen w-screen grid grid-rows-9 grid-cols-12 relative overflow-hidden">
         <div
-          className={`col-span-2 bg-box bg-opacity-40 row-span-10 hidden ${
+          className={`col-span-2 bg-box bg-opacity-40 row-span-9 hidden ${
             !sideBar ? `hidden` : `xl:block `
           }`}
         >
@@ -39,7 +41,7 @@ export default function Dashboard() {
           <Header
             icon={faUserRegular}
             text={"Dashboard"}
-            user={"Ansh"}
+            buttonText={"Ansh"}
           ></Header>
         </div>
         <div
@@ -58,18 +60,8 @@ export default function Dashboard() {
           <Money users={userList}></Money>
         </div>
 
-        <div className="absolute h-1/3 blur-[500px] bg-opacity-35  w-1/5 bg-primary"></div>
-        <div className="absolute h-1/6 blur-[500px] bg-opacity-35  -bottom-10 w-1/5 bg-primary"></div>
-        <div className="absolute h-1/3  blur-[500px] bg-opacity-30  w-1/5 bg-secondary left-[40%] -top-20"></div>
-        <div className="absolute h-1/3  blur-[500px] bg-opacity-20  w-1/5 bg-secondary left-[30%] -bottom-52"></div>
-        <div className="absolute h-1/3  blur-[500px] bg-opacity-30 w-1/5 bg-secondary -right-20 top-[40%]"></div>
-        <div
-          className={`absolute h-full xl:hidden bg-[#121229] w-1/2 ${
-            !sideBar ? `hidden` : ``
-          }`}
-        >
-          <NavItemsList></NavItemsList>
-        </div>
+        <Gradients></Gradients>
+        <MobileNav></MobileNav>
       </div>
     </div>
   );
