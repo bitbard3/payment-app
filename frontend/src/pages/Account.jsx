@@ -2,11 +2,11 @@ import React from "react";
 import NavItemsList from "../components/NavItemsList";
 import { sideBarOpen } from "../stores/atom/sideBar";
 import { useRecoilValue } from "recoil";
-import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import Header from "../components/Header";
 import MobileNav from "../components/MobileNav";
 import Gradients from "../components/Gradients";
 import EditAccount from "../components/EditAccount";
+import { HomeIcon } from "@heroicons/react/24/outline";
 export default function Account() {
   const val = false;
   const sideBar = useRecoilValue(sideBarOpen);
@@ -27,7 +27,13 @@ export default function Account() {
             !sideBar ? ` col-span-12` : `xl:col-span-10`
           }`}
         >
-          <Header text={"Account"} icon={faHouse} buttonText={"Home"}></Header>
+          <Header
+            text={"Account"}
+            buttonText={"Home"}
+            icon={
+              <HomeIcon className="text-neutral-300 h-5 md:h-6 w-6"></HomeIcon>
+            }
+          ></Header>
         </div>
         <div
           className={`row-span-8 mt-10 bg-box bg-opacity-35 md:mx-10 xl:mx-0 md:rounded-2xl mb-5 flex flex-col items-center justify-center ${

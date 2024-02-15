@@ -1,5 +1,4 @@
 import React from "react";
-import { faUser as faUserRegular } from "@fortawesome/free-regular-svg-icons";
 import NavItemsList from "../components/NavItemsList";
 import Card from "../components/Card";
 import Money from "../components/Money";
@@ -8,6 +7,8 @@ import { useRecoilValue } from "recoil";
 import { sideBarOpen } from "../stores/atom/sideBar";
 import MobileNav from "../components/MobileNav";
 import Gradients from "../components/Gradients";
+import { UserIcon } from "@heroicons/react/24/outline";
+
 const cardItems = [
   { heading: "Balance", value: "1000" },
   { heading: "Transactions", value: "23" },
@@ -39,8 +40,10 @@ export default function Dashboard() {
           }`}
         >
           <Header
-            icon={faUserRegular}
             text={"Dashboard"}
+            icon={
+              <UserIcon className="text-neutral-300 h-5 md:h-6 w-6"></UserIcon>
+            }
             buttonText={"Ansh"}
           ></Header>
         </div>
