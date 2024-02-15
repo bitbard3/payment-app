@@ -4,6 +4,7 @@ import { Login } from "./pages/Login";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 import Account from "./pages/Account";
+import Payment from "./pages/Payment";
 function App() {
   return (
     <>
@@ -13,6 +14,7 @@ function App() {
         <Route path="/login" Component={Login}></Route>
         <Route path="/dashboard" Component={Dashboard}></Route>
         <Route path="/account" Component={Account}></Route>
+        <Route path="/payment" Component={Payment}></Route>
       </Routes>
     </>
   );
