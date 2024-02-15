@@ -41,9 +41,7 @@ export default function Dashboard() {
         >
           <Header
             text={"Dashboard"}
-            icon={
-              <UserIcon className="text-neutral-300 h-5 md:h-6 w-6"></UserIcon>
-            }
+            icon={<UserIcon className="text-neutral-300 h-5 md:h-6"></UserIcon>}
             buttonText={"Ansh"}
           ></Header>
         </div>

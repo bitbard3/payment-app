@@ -30,9 +30,7 @@ export default function Account() {
           <Header
             text={"Account"}
             buttonText={"Home"}
-            icon={
-              <HomeIcon className="text-neutral-300 h-5 md:h-6 w-6"></HomeIcon>
-            }
+            icon={<HomeIcon className="text-neutral-300 h-5 md:h-6"></HomeIcon>}
           ></Header>
         </div>
         <div
