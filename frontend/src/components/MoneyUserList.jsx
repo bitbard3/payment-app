@@ -3,7 +3,7 @@ import MoneyUser from "./MoneyUser";
 
 export default function MoneyUserList({ users }) {
   return (
-    <div className="w-full grid grid-rows-4 grid-cols-10 mt-3 px-3 text-light  gap-5 text-sm md:text-base">
+    <div className="w-full grid grid-cols-10 mt-3 px-3 text-light  gap-5 text-sm md:text-base">
       {users.map((user, index) => {
         return (
           <MoneyUser
