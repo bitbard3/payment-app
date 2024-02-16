@@ -5,7 +5,7 @@ import Gradients from "../components/Gradients";
 import NavItemsList from "../components/NavItemsList";
 import { sideBarOpen } from "../stores/atom/sideBar";
 import { useRecoilValue } from "recoil";
-import { HomeIcon } from "@heroicons/react/24/outline";
+import { UserIcon } from "@heroicons/react/24/outline";
 import TransactionsBox from "../components/TransactionsBox";
 
 export default function Transactions() {
@@ -59,7 +59,7 @@ export default function Transactions() {
         >
           <Header
             text={"Transactions"}
-            icon={<HomeIcon className="text-neutral-300 h-5 md:h-6"></HomeIcon>}
+            icon={<UserIcon className="text-neutral-300 h-5 md:h-6"></UserIcon>}
             buttonText={"Ansh"}
           ></Header>
         </div>

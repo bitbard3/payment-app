@@ -6,7 +6,7 @@ import NavItemsList from "../components/NavItemsList";
 import { sideBarOpen } from "../stores/atom/sideBar";
 import { useRecoilValue } from "recoil";
 import SendMoney from "../components/SendMoney";
-import { HomeIcon } from "@heroicons/react/24/outline";
+import { UserIcon } from "@heroicons/react/24/outline";
 
 export default function Payment() {
   const userList = [
@@ -40,7 +40,7 @@ export default function Payment() {
         >
           <Header
             text={"Payment"}
-            icon={<HomeIcon className="text-neutral-300 h-5 md:h-6"></HomeIcon>}
+            icon={<UserIcon className="text-neutral-300 h-5 md:h-6"></UserIcon>}
             buttonText={"Ansh"}
           ></Header>
         </div>
