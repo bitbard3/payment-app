@@ -12,7 +12,7 @@ export default function LoginForm() {
         <div className="flex mt-14 md:mt-20 w-6/12 justify-around">
           <button className="">
             <div
-              className={`rounded-full border bg-secondary border-light p-1.5 hover:scale-110 duration-200`}
+              className={`rounded-full border bg-purple border-light p-1.5 hover:scale-110 duration-200`}
             >
               <EnvelopeIcon className="h-6 text-neutral-200"></EnvelopeIcon>
             </div>

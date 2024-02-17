@@ -17,7 +17,7 @@ export default function SignupForm() {
           <button onClick={() => setPage(0)}>
             <div
               className={`rounded-full border border-light p-1.5 hover:scale-110 duration-200 ${
-                page == 0 ? `bg-secondary hover:scale-100` : ``
+                page == 0 ? `bg-purple hover:scale-100` : ``
               }`}
             >
               <UserIcon className="h-6 text-neutral-200"></UserIcon>
@@ -26,7 +26,7 @@ export default function SignupForm() {
           <button className="" onClick={() => setPage(1)}>
             <div
               className={`rounded-full border border-light p-1.5 hover:scale-110 duration-200 ${
-                page == 1 ? `bg-secondary hover:scale-100` : ``
+                page == 1 ? `bg-purple hover:scale-100` : ``
               }`}
             >
               <EnvelopeIcon className="h-6 text-neutral-200"></EnvelopeIcon>
