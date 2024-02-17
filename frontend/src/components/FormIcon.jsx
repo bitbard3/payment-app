@@ -1,13 +1,12 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function FormIcon({ icon, px, py }) {
+export default function FormIcon({ icon }) {
   return (
     <button className="">
       <div
-        className={`rounded-full border border-light ${px} ${py} hover:scale-110 duration-200`}
+        className={`rounded-full border border-light p-1.5 hover:scale-110 duration-200`}
       >
-        <FontAwesomeIcon icon={icon} className="  text-light" />
+        {icon}
       </div>
     </button>
   );

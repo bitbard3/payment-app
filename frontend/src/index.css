@@ -98,6 +98,13 @@
     box-shadow: inset 4.5rem 0 0 0 #a067f5;
     transform: scale(110%);
   }
+  .slide-form {
+    transition: all 0.5s;
+  }
+  .slide-form:hover {
+    box-shadow: inset 6.3rem 0 0 0 #a067f5;
+    transform: scale(110%);
+  }
   .slide-primary {
     transition: all 0.5s;
   }
