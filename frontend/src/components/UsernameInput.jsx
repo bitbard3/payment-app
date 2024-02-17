@@ -1,9 +1,9 @@
 import React from "react";
 import FormInput from "./FormInput";
 
-export default function EmailInput() {
+export default function UsernameInput() {
   const inputs = [
-    { type: "email", placeholder: "Email", mtInput: "mt-20" },
+    { type: "email", placeholder: "Username", mtInput: "mt-20" },
     { type: "password", placeholder: "Password", mtInput: "mt-12" },
   ];
   return inputs.map((input) => (

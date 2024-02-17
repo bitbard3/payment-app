@@ -4,7 +4,7 @@ import FormTitle from "./FormTitle";
 import { UserIcon } from "@heroicons/react/20/solid";
 import { EnvelopeIcon } from "@heroicons/react/20/solid";
 import NameInput from "./NameInput";
-import EmailInput from "./EmailInput";
+import UsernameInput from "./UsernameInput";
 export default function SignupForm() {
   const [page, setPage] = useState(0);
   const [nameError, setNameError] = useState("");
@@ -44,7 +44,7 @@ export default function SignupForm() {
         ) : (
           <>
             {" "}
-            <EmailInput></EmailInput>{" "}
+            <UsernameInput></UsernameInput>{" "}
             <p className=" text-[#b15b5b] text-xs md:text-sm pr-10 md:pr-16 xl:pr-14 mt-3 ml-auto">
               {emailError}
             </p>{" "}
