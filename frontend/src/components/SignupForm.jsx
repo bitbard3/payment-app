@@ -5,6 +5,7 @@ import { UserIcon } from "@heroicons/react/20/solid";
 import { EnvelopeIcon } from "@heroicons/react/20/solid";
 import NameInput from "./NameInput";
 import UsernameInput from "./UsernameInput";
+
 export default function SignupForm() {
   const [page, setPage] = useState(0);
   const [nameError, setNameError] = useState("");
