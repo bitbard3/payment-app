@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useCallback, useMemo, useEffect } from "react";
 import NavItemsList from "../components/NavItemsList";
 import Card from "../components/Card";
 import Money from "../components/Money";
 import Header from "../components/Header";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { sideBarOpen } from "../stores/atom/sideBar";
 import MobileNav from "../components/MobileNav";
 import Gradients from "../components/Gradients";
 import { UserIcon } from "@heroicons/react/24/outline";
+import { decodeToken } from "react-jwt";
+import axios from "axios";
+import { user } from "@/stores/atom/user";
 
 const cardItems = [
   { heading: "Balance", value: "1000" },
@@ -21,7 +24,27 @@ const userList = [
   { firstName: "Harkirat", lastName: "Singh" },
 ];
 export default function Dashboard() {
+  const [userInfo, setUserInfo] = useRecoilState(user);
   const sideBar = useRecoilValue(sideBarOpen);
+  const jwtDecoded = useMemo(() => {
+    return decodeToken(localStorage.getItem("token"));
+  }, []);
+  useEffect(() => {
+    async function fetchUser() {
+      const user = await axios.get(
+        "http://localhost:3000/api/v1/user/userInfo/" + jwtDecoded.userId
+      );
+      const userAccount = {
+        userId: jwtDecoded.userId,
+        username: user.data.userData.username,
+        firstName: user.data.userData.firstName,
+        lastName: user.data.userData.lastName,
+        balance: user.data.userAccountData.balance,
+      };
+      setUserInfo(userAccount);
+    }
+    fetchUser();
+  }, []);
   return (
     <div>
       <div className="bg-dark h-screen w-screen grid grid-rows-9 grid-cols-12 relative overflow-hidden">
@@ -42,7 +65,6 @@ export default function Dashboard() {
           <Header
             text={"Dashboard"}
             icon={<UserIcon className="text-neutral-300 h-5 md:h-6"></UserIcon>}
-            buttonText={"Ansh"}
           ></Header>
         </div>
         <div
