@@ -27,10 +27,10 @@ export const signup = async (req, res) => {
             return res.status(409).json({ msg: "User already exist" })
         }
         const userId = user[0]._id
-        await Account.create([{ userId, balance: parseFloat((Math.random() * 1000).toFixed(2)) }], { session: session })
+        const account = await Account.create([{ userId, balance: parseFloat((Math.random() * 1000).toFixed(2)) }], { session: session })
         await session.commitTransaction()
         const token = jwt.sign({ username: req.body.username, userId }, process.env.JWT_SECRET)
-        return res.json({ msg: "User created", token })
+        return res.json({ msg: "User created", token, balance: account[0].balance })
     } catch (error) {
         await session.abortTransaction()
         return res.status(400).json({ msg: "Error occured" })
