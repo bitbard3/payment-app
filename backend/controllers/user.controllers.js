@@ -38,11 +38,7 @@ export const signup = async (req, res) => {
     finally {
         await session.endSession();
     }
-
-
 }
-
-
 
 export const login = (req, res) => {
     const validInput = userSchema.pick({ username: true, password: true }).safeParse(req.body)
@@ -56,6 +52,19 @@ export const login = (req, res) => {
         return
     }
 }
+
+export const userInfo = async (req, res) => {
+    const userId = req.params.userId
+    try {
+        const userData = await User.findOne({ _id: userId })
+        const userAccountData = await Account.findOne({ userId })
+        res.json({ userData, userAccountData })
+    } catch (error) {
+        res.status(500).json({ msg: "Internal server error" })
+        return
+    }
+}
+
 export const update = async (req, res) => {
     const validInput = userUpdateSchema.safeParse(req.body)
     if (!validInput.success) {
@@ -74,6 +83,7 @@ export const update = async (req, res) => {
         return
     }
 }
+
 export const bulk = async (req, res) => {
     const filter = req.query.filter || ''
     try {
