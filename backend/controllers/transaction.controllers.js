@@ -7,8 +7,12 @@ export const transfer = async (req, res) => {
     if (!validInput.success) {
         return res.status(422).json({ msg: "Invalid input" })
     }
-    const sender = req.body.sender
+    const sender = req.userId
     const receiver = req.body.receiver
+    if (sender == receiver) {
+        res.status(411).json({ msg: "Sender and receiver cant be same" })
+        return
+    }
     const session = await mongoose.startSession()
     session.startTransaction()
     try {
