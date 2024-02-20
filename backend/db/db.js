@@ -33,7 +33,15 @@ const userSchema = mongoose.Schema({
     balance: {
         type: Number,
         required: true
-    }
+    },
+    friendRequests: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    friends: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 })
 const transactionSchema = mongoose.Schema({
     sender: {
