@@ -29,23 +29,19 @@ const userSchema = mongoose.Schema({
         required: true,
         trim: true,
         maxLength: 50
-    }
-})
-
-const bankSchema = mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
     },
     balance: {
         type: Number,
         required: true
     }
 })
-
 const transactionSchema = mongoose.Schema({
-    userId: {
+    sender: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    receiver: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
@@ -54,19 +50,12 @@ const transactionSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    type: {
-        type: String,
-        enum: ['debit', 'credit'],
-        required: true
-    },
     date: {
         type: Date,
         default: Date.now,
-        required: true
     }
 })
 
 
 export const User = mongoose.model('User', userSchema)
-export const Account = mongoose.model('Account', bankSchema)
 export const Transaction = mongoose.model('Transaction', transactionSchema)
