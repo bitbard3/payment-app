@@ -106,6 +106,10 @@ export const bulk = async (req, res) => {
 export const addFriendRequest = async (req, res) => {
     const friend = req.body.friend
     const self = req.userId
+    if (self == friend) {
+        res.status(411).json({ msg: "Friend and Self id are same" })
+        return
+    }
     const validInput = addFriendSchema.safeParse(friend)
     if (!validInput.success) {
         res.status(411).json({ msg: "Please provide invalid input" })
@@ -114,9 +118,16 @@ export const addFriendRequest = async (req, res) => {
     }
     try {
         const alrReq = await User.findOne({ _id: friend, friendRequests: self });
+        const alrFriend = await User.findOne({ _id: friend, friends: self });
         if (alrReq) {
             throw new Error('Friend request already exists')
-        } else {
+        }
+        else if (alrFriend) {
+            {
+                throw new Error('Friend already exists')
+            }
+        }
+        else {
             const add = await User.updateOne({ _id: friend }, {
                 '$push': {
                     friendRequests: self
@@ -126,7 +137,11 @@ export const addFriendRequest = async (req, res) => {
         }
     } catch (error) {
         if (error.message === 'Friend request already exists') {
-            res.status(409).json({ msg: "User already exists" })
+            res.status(409).json({ msg: "Friend request already exists" })
+            return
+        }
+        else if (error.message === 'Friend already exists') {
+            res.status(409).json({ msg: "Friend already exists" })
             return
         }
         else {
