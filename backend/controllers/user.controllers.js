@@ -112,8 +112,7 @@ export const addFriendRequest = async (req, res) => {
     }
     const validInput = addFriendSchema.safeParse(friend)
     if (!validInput.success) {
-        res.status(411).json({ msg: "Please provide invalid input" })
-        console.log(validInput.error)
+        res.status(411).json({ msg: "Please provide valid input" })
         return
     }
     try {
@@ -142,6 +141,50 @@ export const addFriendRequest = async (req, res) => {
         }
         else if (error.message === 'Friend already exists') {
             res.status(409).json({ msg: "Friend already exists" })
+            return
+        }
+        else {
+            res.status(500).json({ msg: "Internal server error" })
+            return
+        }
+    }
+}
+export const addFriend = async (req, res) => {
+    const self = req.userId
+    const friend = req.body.friend
+    if (self == friend) {
+        res.status(411).json({ msg: "Friend and Self id are same" })
+        return
+    }
+    const validInput = addFriendSchema.safeParse(friend)
+    if (!validInput.success) {
+        res.status(411).json({ msg: "Please provide valid input" })
+        return
+    }
+    try {
+        const alrReq = await User.findOne({ _id: self, friendRequests: friend });
+        if (!alrReq) {
+            throw new Error('Friend request doesnt exist')
+        } else {
+            await User.updateOne({ _id: self }, {
+                '$pull': {
+                    friendRequests: friend
+                },
+                '$push': {
+                    friends: friend
+                }
+            });
+            await User.updateOne({ _id: friend }, {
+                '$push': {
+                    friends: self
+                }
+            })
+            res.json({ msg: "Friend added" })
+            return
+        }
+    } catch (error) {
+        if (error.message === 'Friend request already exists') {
+            res.status(404).json({ msg: "Friend request doesn't exists" })
             return
         }
         else {
