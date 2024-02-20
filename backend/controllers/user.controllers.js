@@ -1,4 +1,4 @@
-import { Account, User } from "../db/db.js";
+import { User } from "../db/db.js";
 import mongoose from 'mongoose'
 import { userSchema, userUpdateSchema } from "./validations/user.validation.js";
 import jwt from 'jsonwebtoken'
@@ -11,32 +11,24 @@ export const signup = async (req, res) => {
         res.status(411).json({ msg: "Incorrect Inputs" })
         return
     }
-    const session = await mongoose.startSession()
-    session.startTransaction()
     try {
         if (!userExist) {
-            var user = await User.create([{
+            var user = await User.create({
                 username: req.body.username,
                 password: req.body.password,
                 firstName: req.body.firstName,
-                lastName: req.body.lastName
-            }], { session: session })
+                lastName: req.body.lastName,
+                balance: parseFloat((Math.random() * 1000).toFixed(2))
+            })
         }
         else {
-            session.abortTransaction()
             return res.status(409).json({ msg: "User already exist" })
         }
-        const userId = user[0]._id
-        const account = await Account.create([{ userId, balance: parseFloat((Math.random() * 1000).toFixed(2)) }], { session: session })
-        await session.commitTransaction()
+        const userId = user._id
         const token = jwt.sign({ username: req.body.username, userId }, process.env.JWT_SECRET)
-        return res.json({ msg: "User created", token, balance: account[0].balance })
+        return res.json({ msg: "User created", token, balance: user.balance })
     } catch (error) {
-        await session.abortTransaction()
         return res.status(400).json({ msg: "Error occured" })
-    }
-    finally {
-        await session.endSession();
     }
 }
 
@@ -57,8 +49,8 @@ export const userInfo = async (req, res) => {
     const userId = req.params.userId
     try {
         const userData = await User.findOne({ _id: userId })
-        const userAccountData = await Account.findOne({ userId })
-        res.json({ userData, userAccountData })
+        const filterData = Object.keys(userData).filter(key => key != 'password')
+        res.json({ userData: filterData })
     } catch (error) {
         res.status(500).json({ msg: "Internal server error" })
         return
