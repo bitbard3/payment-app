@@ -44,6 +44,29 @@ const bankSchema = mongoose.Schema({
     }
 })
 
+const transactionSchema = mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    amount: {
+        type: Number,
+        required: true
+    },
+    type: {
+        type: String,
+        enum: ['debit', 'credit'],
+        required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now,
+        required: true
+    }
+})
+
 
 export const User = mongoose.model('User', userSchema)
 export const Account = mongoose.model('Account', bankSchema)
+export const Transaction = mongoose.model('Transaction', transactionSchema)
