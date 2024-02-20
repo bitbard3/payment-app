@@ -45,3 +45,21 @@ export const transfer = async (req, res) => {
         await session.endSession();
     }
 }
+export const transactions = async (req, res) => {
+    const userId = req.userId
+    try {
+        const transactions = await Transaction.find({
+            $or:
+                [
+                    { 'sender': userId },
+                    { 'receiver': userId }
+                ]
+        })
+        res.json({ transactions })
+        return
+    } catch (error) {
+        res.status(500).json({ msg: "Internal server error" })
+        return
+    }
+
+}
