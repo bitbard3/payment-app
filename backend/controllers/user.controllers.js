@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import { userSchema, userUpdateSchema } from "./validations/user.validation.js";
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv';
+import { addFriendSchema } from "./validations/friend.validation.js";
 dotenv.config()
 export const signup = async (req, res) => {
     const validInput = userSchema.safeParse(req.body)
@@ -100,5 +101,37 @@ export const bulk = async (req, res) => {
     } catch (error) {
         res.status(500).json({ msg: "Internal server error" })
         return
+    }
+}
+export const addFriendRequest = async (req, res) => {
+    const friend = req.body.friend
+    const self = req.userId
+    const validInput = addFriendSchema.safeParse(friend)
+    if (!validInput.success) {
+        res.status(411).json({ msg: "Please provide invalid input" })
+        console.log(validInput.error)
+        return
+    }
+    try {
+        const alrReq = await User.findOne({ _id: friend, friendRequests: self });
+        if (alrReq) {
+            throw new Error('Friend request already exists')
+        } else {
+            const add = await User.updateOne({ _id: friend }, {
+                '$push': {
+                    friendRequests: self
+                }
+            });
+            res.json({ msg: "Friend request added" })
+        }
+    } catch (error) {
+        if (error.message === 'Friend request already exists') {
+            res.status(409).json({ msg: "User already exists" })
+            return
+        }
+        else {
+            res.status(500).json({ msg: "Internal server error" })
+            return
+        }
     }
 }
