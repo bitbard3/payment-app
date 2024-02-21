@@ -49,9 +49,9 @@ export const login = (req, res) => {
 export const userInfo = async (req, res) => {
     const userId = req.userId
     try {
-        const userData = await User.findOne({ _id: userId })
-        delete userData['password']
+        const userData = await User.findOne({ _id: userId }).select('-password')
         res.json({ userData })
+        return
     } catch (error) {
         res.status(500).json({ msg: "Internal server error" })
         return
