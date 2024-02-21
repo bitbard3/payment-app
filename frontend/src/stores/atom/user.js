@@ -10,6 +10,8 @@ export const user = atom({
         balance: '',
         friendRequests: [],
         friends: [],
-        transactions: []
+        transactions: [],
+        transactionsLength: 0,
+        friendsLength: 0,
     }
 })
