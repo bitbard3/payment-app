@@ -1,22 +1,15 @@
-import React, { useCallback, useMemo, useEffect } from "react";
+import React, { useEffect } from "react";
 import NavItemsList from "../components/NavItemsList";
 import Card from "../components/Card";
 import Money from "../components/Money";
 import Header from "../components/Header";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { sideBarOpen } from "../stores/atom/sideBar";
 import MobileNav from "../components/MobileNav";
 import Gradients from "../components/Gradients";
 import { UserIcon } from "@heroicons/react/24/outline";
-import { decodeToken } from "react-jwt";
 import axios from "axios";
 import { user } from "@/stores/atom/user";
-
-const cardItems = [
-  { heading: "Balance", value: "1000" },
-  { heading: "Transactions", value: "23" },
-  { heading: "Friends", value: "473" },
-];
 const userList = [
   { firstName: "Ansh", lastName: "Arora" },
   { firstName: "Chirag", lastName: "Lalwani" },
@@ -24,24 +17,30 @@ const userList = [
   { firstName: "Harkirat", lastName: "Singh" },
 ];
 export default function Dashboard() {
-  const [userInfo, setUserInfo] = useRecoilState(user);
+  const setUserInfo = useSetRecoilState(user);
   const sideBar = useRecoilValue(sideBarOpen);
-  const jwtDecoded = useMemo(() => {
-    return decodeToken(localStorage.getItem("token"));
-  }, []);
   useEffect(() => {
     async function fetchUser() {
-      const user = await axios.get(
-        "http://localhost:3000/api/v1/user/userInfo/" + jwtDecoded.userId
-      );
-      const userAccount = {
-        userId: jwtDecoded.userId,
-        username: user.data.userData.username,
-        firstName: user.data.userData.firstName,
-        lastName: user.data.userData.lastName,
-        balance: user.data.userAccountData.balance,
-      };
-      setUserInfo(userAccount);
+      try {
+        const user = await axios.get(
+          "http://localhost:3000/api/v1/user/userInfo",
+          { headers: { Authorization: localStorage.getItem("token") } }
+        );
+        const transactions = await axios.get(
+          "http://localhost:3000/api/v1/transaction/transactions",
+          { headers: { Authorization: localStorage.getItem("token") } }
+        );
+        const userAccount = {
+          username: user.data.userData.username,
+          firstName: user.data.userData.firstName,
+          lastName: user.data.userData.lastName,
+          balance: user.data.userData.balance,
+          friends: [...user.data.userData.friends],
+          friendRequests: [...user.data.userData.friendRequests],
+          transactions: [...transactions.data.transactions],
+        };
+        setUserInfo(userAccount);
+      } catch (error) {}
     }
     fetchUser();
   }, []);
@@ -72,7 +71,7 @@ export default function Dashboard() {
             !sideBar ? ` col-span-12` : `xl:col-span-10`
           }`}
         >
-          <Card items={cardItems}></Card>
+          <Card></Card>
         </div>
 
         <div
