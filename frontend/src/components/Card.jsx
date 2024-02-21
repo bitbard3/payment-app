@@ -13,11 +13,11 @@ export default function Card({}) {
       </div>
       <div className="md:flex flex-col items-center justify-center md:h-4/5 md:w-[40%] bg-dark bg-opacity-9 w-[50%] xl:w-[20%] xl:h-[75%] h-full lg:h-[70%] lg:w-[35%] rounded-xl py-8 hover:scale-105 delay-100 hidden">
         <p className="text-neutral-400 text-base md:text-lg">Transactions</p>
-        <CardValue value={userInfo.transactions.length}></CardValue>
+        <CardValue value={userInfo.transactionsLength}></CardValue>
       </div>
       <div className="xl:flex flex-col items-center justify-center md:h-4/5 md:w-[20%] bg-dark bg-opacity-9 w-[50%] xl:w-[20%] xl:h-[75%] lg:h-[70%] lg:w-[35%] h-full rounded-xl py-8 hover:scale-105 delay-100 hidden">
         <p className="text-neutral-400 text-base md:text-lg">Friends</p>
-        <CardValue value={userInfo.friends.length}></CardValue>
+        <CardValue value={userInfo.friendsLength}></CardValue>
       </div>
     </div>
   );

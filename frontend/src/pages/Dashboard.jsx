@@ -31,6 +31,7 @@ export default function Dashboard() {
           { headers: { Authorization: localStorage.getItem("token") } }
         );
         const userAccount = {
+          userId: user.data.userData._id,
           username: user.data.userData.username,
           firstName: user.data.userData.firstName,
           lastName: user.data.userData.lastName,
@@ -38,12 +39,15 @@ export default function Dashboard() {
           friends: [...user.data.userData.friends],
           friendRequests: [...user.data.userData.friendRequests],
           transactions: [...transactions.data.transactions],
+          friendsLength: [...user.data.userData.friends].length,
+          transactionsLength: [...transactions.data.transactions].length,
         };
         setUserInfo(userAccount);
       } catch (error) {}
     }
     fetchUser();
   }, []);
+
   return (
     <div>
       <div className="bg-dark h-screen w-screen grid grid-rows-9 grid-cols-12 relative overflow-hidden">
@@ -71,6 +75,7 @@ export default function Dashboard() {
             !sideBar ? ` col-span-12` : `xl:col-span-10`
           }`}
         >
+          {}
           <Card></Card>
         </div>
 
