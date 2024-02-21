@@ -46,14 +46,13 @@ export default function SignupForm() {
           }
         );
         const token = res.data.token;
-        localStorage.setItem("token", token);
+        localStorage.setItem("token", `Bearer ${token}`);
         navigate("/dashboard");
         toast({
           variant: "default",
           title: "Money credited",
           description: `On signup a bonus of ${res.data.balance} has been added`,
         });
-        console.log(res);
       } catch (error) {
         if (error.response.status == 409) {
           setEmailError("Username already exists");
