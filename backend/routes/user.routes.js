@@ -11,7 +11,7 @@ router.post('/signup', userExist, signup)
 router.post('/login', userLogin, login)
 router.put('/', validUser, update)
 router.get('/bulk', validUser, bulk)
-router.get('/userInfo/:userId', userInfo)
+router.get('/userInfo', userInfo)
 router.post('/addFriendRequest', validUser, addFriendRequest)
 router.post('/addFriend', validUser, addFriend)
 export default router
