@@ -10,9 +10,7 @@ export default function TransactionsBox({ transactions }) {
     <div className="flex flex-col w-full h-full py-5 px-6">
       <TransactionsHeaders></TransactionsHeaders>
       <TransactionsLabel></TransactionsLabel>
-      <TransactionsRecordsList
-        transactions={transactions}
-      ></TransactionsRecordsList>
+      <TransactionsRecordsList></TransactionsRecordsList>
       <div className="ml-auto mr-auto mt-auto ">
         <PaginationPrevButton></PaginationPrevButton>
         <PaginationNextButton></PaginationNextButton>

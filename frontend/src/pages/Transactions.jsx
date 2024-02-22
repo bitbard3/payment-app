@@ -10,36 +10,6 @@ import TransactionsBox from "../components/TransactionsBox";
 
 export default function Transactions() {
   const sideBar = useRecoilValue(sideBarOpen);
-  const transactions = [
-    {
-      account: "Ansh Arora",
-      amount: "1823",
-      date: "24 January",
-      type: "debit",
-    },
-    {
-      account: "Harkirat Singh",
-      amount: "1202",
-      date: "24 January",
-      type: "credit",
-    },
-    {
-      account: "Big assNamethat",
-      amount: "10289",
-      date: "24 January",
-      type: "credit",
-    },
-    {
-      account: "Ansh Arora",
-      amount: "183",
-      date: "24 January",
-      type: "credit",
-    },
-    { account: "Ansh Arora", amount: "23", date: "24 March", type: "debit" },
-    { account: "Ansh Arora", amount: "23", date: "24 March", type: "credit" },
-    { account: "Ansh Arora", amount: "23", date: "24 March", type: "debit" },
-    { account: "Ansh Arora", amount: "23", date: "24 March", type: "credit" },
-  ];
   return (
     <div>
       <div className="w-screen h-screen bg-dark grid grid-cols-12 grid-rows-9 relative overflow-hidden">
@@ -70,7 +40,7 @@ export default function Transactions() {
               : `xl:col-start-4 xl:col-span-8 col-span-12`
           }`}
         >
-          <TransactionsBox transactions={transactions}></TransactionsBox>
+          <TransactionsBox></TransactionsBox>
         </div>
         <MobileNav></MobileNav>
         <Gradients></Gradients>
