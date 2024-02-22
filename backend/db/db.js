@@ -61,6 +61,18 @@ const transactionSchema = mongoose.Schema({
     date: {
         type: Date,
         default: Date.now,
+    },
+    senderName: {
+        type: String,
+        required: true,
+        trim: true,
+        maxLength: 100
+    },
+    receiverName: {
+        type: String,
+        required: true,
+        trim: true,
+        maxLength: 100
     }
 })
 

@@ -16,14 +16,14 @@ export const transfer = async (req, res) => {
     const session = await mongoose.startSession()
     session.startTransaction()
     try {
-        const user = await User.findOne({ _id: sender }).session(session)
-        const balance = user.balance
-        if (!user || balance < req.body.amount) {
+        const senderUser = await User.findOne({ _id: sender }).session(session)
+        const balance = senderUser.balance
+        if (!senderUser || balance < req.body.amount) {
             await session.abortTransaction()
             return res.status(400).json({ msg: "Insufficent balance" })
         }
         try {
-            await User.findOne({ _id: receiver }).session(session)
+            var receiverUser = await User.findOne({ _id: receiver }).session(session)
         } catch (error) {
             await session.abortTransaction()
             return res.status(404).json({ msg: "Account doesnt exist" })
@@ -33,6 +33,8 @@ export const transfer = async (req, res) => {
         await Transaction.create([{
             sender,
             receiver,
+            senderName: `${senderUser.firstName} ${senderUser.lastName}`,
+            receiverName: `${receiverUser.firstName} ${receiverUser.lastName}`,
             amount: req.body.amount,
             date: new Date()
         }], { session: session })
