@@ -26,7 +26,6 @@ export const fetchUser = selector({
                 transactionsLength: [...transactions.data.transactions].length,
             };
             if (user.status == 200 && transactions.status) {
-                console.log('hi')
             }
             else {
 

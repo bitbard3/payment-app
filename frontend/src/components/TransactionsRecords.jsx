@@ -1,12 +1,43 @@
 import React from "react";
-
 export default function TransactionsRecords({
-  index,
+  sender,
   amount,
-  account,
+  index,
   date,
-  type,
+  userId,
+  senderName,
+  receiverName,
 }) {
+  let type;
+  let account;
+
+  if (userId == sender) {
+    type = "debit";
+    account = receiverName;
+  } else {
+    type = "credit";
+    account = senderName;
+  }
+  const systemDate = new Date(date);
+  var months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  var day = systemDate.getDate();
+  var monthIndex = systemDate.getMonth();
+  var year = systemDate.getFullYear();
+  var formattedDay = day < 10 ? "0" + day : day;
+  var formattedDate = formattedDay + " " + months[monthIndex] + " " + year;
   return (
     <>
       <div className="col-span-1 md:col-span-1 mt-2">
@@ -30,7 +61,7 @@ export default function TransactionsRecords({
       </div>
       <div className="col-span-3 md:col-span-3">
         <div className="flex items-center md:justify-center mt-2">
-          <p className="overflow-hidden text-ellipsis">{date}</p>
+          <p className="overflow-hidden text-ellipsis">{formattedDate}</p>
         </div>
       </div>
     </>
