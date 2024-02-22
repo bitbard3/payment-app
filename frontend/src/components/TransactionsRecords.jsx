@@ -10,7 +10,6 @@ export default function TransactionsRecords({
 }) {
   let type;
   let account;
-
   if (userId == sender) {
     type = "debit";
     account = receiverName;
