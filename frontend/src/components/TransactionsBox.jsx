@@ -5,7 +5,7 @@ import TransactionsRecordsList from "./TransactionsRecordsList";
 import PaginationPrevButton from "./PaginationPrevButton";
 import PaginationNextButton from "./PaginationNextButton";
 
-export default function TransactionsBox({ transactions }) {
+export default function TransactionsBox() {
   return (
     <div className="flex flex-col w-full h-full py-5 px-6">
       <TransactionsHeaders></TransactionsHeaders>
