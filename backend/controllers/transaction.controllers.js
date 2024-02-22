@@ -23,7 +23,7 @@ export const transfer = async (req, res) => {
             return res.status(400).json({ msg: "Insufficent balance" })
         }
         try {
-            var receiverUser = await User.findOne({ _id: receiver }).session(session)
+            await User.findOne({ _id: receiver }).session(session)
         } catch (error) {
             await session.abortTransaction()
             return res.status(404).json({ msg: "Account doesnt exist" })
@@ -33,8 +33,6 @@ export const transfer = async (req, res) => {
         await Transaction.create([{
             sender,
             receiver,
-            senderName: `${senderUser.firstName} ${senderUser.lastName}`,
-            receiverName: `${receiverUser.firstName} ${receiverUser.lastName}`,
             amount: req.body.amount,
             date: new Date()
         }], { session: session })
@@ -50,16 +48,54 @@ export const transfer = async (req, res) => {
 export const transactions = async (req, res) => {
     const userId = req.userId
     try {
-        const transactions = await Transaction.find({
-            $or:
-                [
-                    { 'sender': userId },
-                    { 'receiver': userId }
-                ]
-        })
-        res.json({ transactions })
-        return
+        const transactions = await Transaction.aggregate([
+            {
+                $match: {
+                    $or: [
+                        { sender: new mongoose.Types.ObjectId(userId) },
+                        { receiver: new mongoose.Types.ObjectId(userId) }
+                    ]
+                }
+            },
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'sender',
+                    foreignField: '_id',
+                    as: 'senderInfo'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'receiver',
+                    foreignField: '_id',
+                    as: 'receiverInfo'
+                }
+            },
+            {
+                $unwind: "$senderInfo"
+            },
+            {
+                $unwind: "$receiverInfo"
+            },
+            {
+                $project: {
+                    _id: 1,
+                    amount: 1,
+                    date: 1,
+                    senderId: "$senderInfo._id",
+                    receiverId: "$receiverInfo._id",
+                    senderFirstName: "$senderInfo.firstName",
+                    senderLastName: "$senderInfo.lastName",
+                    receiverFirstName: "$receiverInfo.firstName",
+                    receiverLastName: "$receiverInfo.lastName"
+                }
+            }
+        ]);
+        return res.json({ transactions });
     } catch (error) {
+        console.log(error)
         res.status(500).json({ msg: "Internal server error" })
         return
     }
