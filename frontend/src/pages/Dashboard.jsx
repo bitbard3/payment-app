@@ -3,13 +3,11 @@ import NavItemsList from "../components/NavItemsList";
 import Card from "../components/Card";
 import Money from "../components/Money";
 import Header from "../components/Header";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { sideBarOpen } from "../stores/atom/sideBar";
 import MobileNav from "../components/MobileNav";
 import Gradients from "../components/Gradients";
 import { UserIcon } from "@heroicons/react/24/outline";
-import axios from "axios";
-import { user } from "@/stores/atom/user";
 const userList = [
   { firstName: "Ansh", lastName: "Arora" },
   { firstName: "Chirag", lastName: "Lalwani" },
@@ -17,37 +15,7 @@ const userList = [
   { firstName: "Harkirat", lastName: "Singh" },
 ];
 export default function Dashboard() {
-  const setUserInfo = useSetRecoilState(user);
   const sideBar = useRecoilValue(sideBarOpen);
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const user = await axios.get(
-          "http://localhost:3000/api/v1/user/userInfo",
-          { headers: { Authorization: localStorage.getItem("token") } }
-        );
-        const transactions = await axios.get(
-          "http://localhost:3000/api/v1/transaction/transactions",
-          { headers: { Authorization: localStorage.getItem("token") } }
-        );
-        const userAccount = {
-          userId: user.data.userData._id,
-          username: user.data.userData.username,
-          firstName: user.data.userData.firstName,
-          lastName: user.data.userData.lastName,
-          balance: user.data.userData.balance,
-          friends: [...user.data.userData.friends],
-          friendRequests: [...user.data.userData.friendRequests],
-          transactions: [...transactions.data.transactions],
-          friendsLength: [...user.data.userData.friends].length,
-          transactionsLength: [...transactions.data.transactions].length,
-        };
-        setUserInfo(userAccount);
-      } catch (error) {}
-    }
-    fetchUser();
-  }, []);
-
   return (
     <div>
       <div className="bg-dark h-screen w-screen grid grid-rows-9 grid-cols-12 relative overflow-hidden">
