@@ -41,9 +41,17 @@ export const login = (req, res) => {
         return
     }
     if (!userExist) {
-        res.status(411).json({ msg: "User doesn't exist/ Password is Incorrect" })
+        res.status(403).json({ msg: "User doesn't exist/ Password is Incorrect" })
         return
     }
+    const token = jwt.sign({
+        username: req.user,
+        userId: req.userId
+    }, process.env.JWT_SECRET);
+    res.json({
+        token: token
+    })
+    return;
 }
 
 export const userInfo = async (req, res) => {
