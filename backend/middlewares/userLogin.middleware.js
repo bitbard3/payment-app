@@ -6,6 +6,7 @@ export async function userLogin(req, res, next) {
     const isUser = await User.findOne({ username, password })
     if (isUser) {
         req.user = username
+        req.userId = isUser._id
     }
     next()
 }
