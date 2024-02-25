@@ -19,11 +19,11 @@ export const fetchUser = selector({
                 firstName: user.data.userData.firstName,
                 lastName: user.data.userData.lastName,
                 balance: user.data.userData.balance,
-                friends: [...user.data.userData.friends],
+                friendsInfo: [...user.data.userData.friendsInfo],
                 sentFriendRequests: [...user.data.userData.sentFriendRequests],
-                friendRequests: [...user.data.userData.friendRequests],
+                friendRequestsInfo: [...user.data.userData.friendRequestsInfo],
                 transactions: [...transactions.data.transactions],
-                friendsLength: [...user.data.userData.friends].length,
+                friendsLength: [...user.data.userData.friendsInfo].length,
                 transactionsLength: [...transactions.data.transactions].length,
             };
             if (user.status == 200 && transactions.status) {

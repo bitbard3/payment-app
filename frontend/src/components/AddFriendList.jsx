@@ -12,15 +12,15 @@ export default function AddFriendList({ friends }) {
     const filteredFriends = friends.filter(
       (friend) =>
         !userInfo.sentFriendRequests.includes(friend._id) &&
-        !userInfo.friends.includes(friend._id) &&
-        !userInfo.friendRequests.includes(friend._id)
+        !userInfo.friendsInfo.some((info) => info._id === friend._id) &&
+        !userInfo.friendRequestsInfo.some((info) => info._id === friend._id)
     );
     setFilterFriends(filteredFriends);
   }, [
     friends,
     userInfo.sentFriendRequests,
-    userInfo.friends,
-    userInfo.friendRequests,
+    userInfo.friendsInfo,
+    userInfo.friendRequestsInfo,
   ]);
   const onClickHandler = async (friendId) => {
     try {
