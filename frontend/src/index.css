@@ -165,7 +165,7 @@
     transition: all 0.5s;
   }
   .slide:hover {
-    box-shadow: inset 4.5rem 0 0 0 #a067f5;
+    box-shadow: inset 4.7rem 0 0 0 #a067f5;
     transform: scale(110%);
   }
   .slide-form {
