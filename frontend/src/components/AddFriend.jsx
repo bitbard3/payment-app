@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function AddFriend({ firstName, lastName, index }) {
+export default function AddFriend({ firstName, lastName, index, onAddClick }) {
   return (
     <>
       <div className="col-span-2 md:col-span-1 mt-2">
@@ -18,7 +18,10 @@ export default function AddFriend({ firstName, lastName, index }) {
       </div>
       <div className="col-span-2 md:col-span-5">
         <div className="flex items-center justify-end">
-          <button className="border-yellow  border px-5 rounded-2xl py-1 z-10 slide-yellow">
+          <button
+            onClick={onAddClick}
+            className="border-purple  border px-5 rounded-2xl py-1 z-10 slide"
+          >
             <span className="">Add</span>
           </button>
         </div>
