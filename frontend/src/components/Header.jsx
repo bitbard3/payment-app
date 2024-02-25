@@ -4,6 +4,13 @@ import HeaderAccount from "./HeaderAccount";
 import NavButton from "./NavButton";
 import { useRecoilValueLoadable } from "recoil";
 import { user } from "@/stores/atom/user";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import HeaderPopover from "./HeaderPopover";
+
 export default function Header({ icon, text }) {
   const userAtomLoadable = useRecoilValueLoadable(user);
   return (
@@ -13,12 +20,19 @@ export default function Header({ icon, text }) {
       </span>
       <HeaderHeading text={text}></HeaderHeading>
       <div className="ms-auto">
-        <HeaderAccount
-          icon={icon}
-          user={
-            text == "Account" ? `Home` : userAtomLoadable.contents.firstName
-          }
-        ></HeaderAccount>
+        <Popover>
+          <PopoverTrigger>
+            <HeaderAccount
+              icon={icon}
+              user={
+                text == "Account" ? `Home` : userAtomLoadable.contents.firstName
+              }
+            ></HeaderAccount>
+          </PopoverTrigger>
+          <PopoverContent>
+            <HeaderPopover></HeaderPopover>
+          </PopoverContent>
+        </Popover>
       </div>
     </div>
   );
