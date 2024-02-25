@@ -47,16 +47,75 @@ export const login = (req, res) => {
 }
 
 export const userInfo = async (req, res) => {
-    const userId = req.userId
+    const userId = req.userId;
     try {
-        const userData = await User.findOne({ _id: userId }).select('-password')
-        res.json({ userData })
-        return
+        const userData = await User.aggregate([
+            {
+                $match: { _id: new mongoose.Types.ObjectId(userId) }
+            },
+            {
+                $lookup: {
+                    from: 'users',
+                    let: { friends: '$friends' },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $in: ['$_id', '$$friends']
+                                }
+                            }
+                        },
+                        {
+                            $project: {
+                                _id: 1,
+                                firstName: 1,
+                                lastName: 1
+                            }
+                        }
+                    ],
+                    as: 'friendsInfo'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'users',
+                    let: { friendRequests: '$friendRequests' },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $in: ['$_id', '$$friendRequests']
+                                }
+                            }
+                        },
+                        {
+                            $project: {
+                                _id: 1,
+                                firstName: 1,
+                                lastName: 1
+                            }
+                        }
+                    ],
+                    as: 'friendRequestsInfo'
+                }
+            },
+            {
+                $project: {
+                    username: 1,
+                    firstName: 1,
+                    lastName: 1,
+                    balance: 1,
+                    sentFriendRequests: 1,
+                    friendsInfo: 1,
+                    friendRequestsInfo: 1
+                }
+            }
+        ]);
+        res.json({ userData: userData[0] });
     } catch (error) {
-        res.status(500).json({ msg: "Internal server error" })
-        return
+        res.status(500).json({ msg: "Internal server error" });
     }
-}
+};
 
 export const update = async (req, res) => {
     const validInput = userUpdateSchema.safeParse(req.body)
