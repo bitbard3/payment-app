@@ -262,3 +262,34 @@ export const addFriend = async (req, res) => {
         }
     }
 }
+
+export const removeFrinedRequest = async (req, res) => {
+    const self = req.userId
+    const friend = req.body.friend
+    if (self == friend) {
+        res.status(411).json({ msg: "Friend and Self id are same" })
+        return
+    }
+    const validInput = addFriendSchema.safeParse(friend)
+    if (!validInput.success) {
+        res.status(411).json({ msg: "Please provide valid input" })
+        return
+    }
+    try {
+        await User.updateOne({ _id: friend }, {
+            '$pull': {
+                sentFriendRequests: self
+            }
+        })
+        await User.updateOne({ _id: self }, {
+            '$pull': {
+                friendRequests: friend
+            }
+        })
+        res.json({ msg: "Friend request removed" })
+        return
+    } catch (error) {
+        res.status(500).json({ msg: "Internal server error" })
+        return
+    }
+}
