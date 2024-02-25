@@ -36,7 +36,28 @@ export default function AddFriendRequestList() {
       });
     } catch (error) {}
   };
-
+  const onRemoveHandler = async (friendId) => {
+    try {
+      await axios.post(
+        `http://localhost:3000/api/v1/user/removeFriendRequest`,
+        { friend: friendId },
+        {
+          headers: { Authorization: localStorage.getItem("token") },
+        }
+      );
+      const updatedFriendRequestsInfo = filteredFriends.filter(
+        (item) => item._id != friendId
+      );
+      setUserInfo((prev) => ({
+        ...prev,
+        friendRequestsInfo: updatedFriendRequestsInfo,
+      }));
+      toast({
+        variant: "default",
+        description: `Friend request removed!`,
+      });
+    } catch (error) {}
+  };
   return (
     <div className="flex flex-col mt-5 italic">
       {filteredFriends.map((friendReq) => {
@@ -46,6 +67,7 @@ export default function AddFriendRequestList() {
             firstName={friendReq.firstName}
             lastName={friendReq.lastName}
             onAddHandler={() => onAddHandler(friendReq._id, friendReq)}
+            onRemoveHandler={() => onRemoveHandler(friendReq._id)}
           ></AddFriendRequest>
         );
       })}

@@ -3,6 +3,7 @@ import { UserPlusIcon, UserMinusIcon } from "@heroicons/react/16/solid";
 export default function AddFriendRequest({
   firstName,
   lastName,
+  onRemoveHandler,
   onAddHandler,
 }) {
   return (
@@ -13,7 +14,7 @@ export default function AddFriendRequest({
         <button onClick={onAddHandler} className="">
           <UserPlusIcon className="h-6 w-6 text-gray-500 opacity-80" />
         </button>
-        <button className="">
+        <button onClick={onRemoveHandler} className="">
           <UserMinusIcon className="h-6 w-6 text-gray-500 opacity-80" />
         </button>
       </div>
