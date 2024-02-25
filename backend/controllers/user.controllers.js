@@ -127,11 +127,16 @@ export const addFriendRequest = async (req, res) => {
             }
         }
         else {
-            const add = await User.updateOne({ _id: friend }, {
+            await User.updateOne({ _id: friend }, {
                 '$push': {
                     friendRequests: self
                 }
             });
+            await User.updateOne({ _id: self }, {
+                '$push': {
+                    sentFriendRequests: friend
+                }
+            })
             res.json({ msg: "Friend request added" })
         }
     } catch (error) {
@@ -149,6 +154,8 @@ export const addFriendRequest = async (req, res) => {
         }
     }
 }
+
+
 export const addFriend = async (req, res) => {
     const self = req.userId
     const friend = req.body.friend
@@ -175,6 +182,9 @@ export const addFriend = async (req, res) => {
                 }
             });
             await User.updateOne({ _id: friend }, {
+                '$pull': {
+                    sentFriendRequests: self
+                },
                 '$push': {
                     friends: self
                 }
