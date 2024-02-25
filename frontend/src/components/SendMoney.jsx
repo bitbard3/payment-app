@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import MoneyIndex from "./MoneyIndex";
 import MoneyUserList from "./MoneyUserList";
-import PaginationPrevButton from "./PaginationPrevButton";
-import PaginationNextButton from "./PaginationNextButton";
 import SendMoneyHeader from "./SendMoneyHeader";
 import { toast, useToast } from "@/components/ui/use-toast";
 import AddFriendList from "./AddFriendList";
@@ -47,10 +45,7 @@ export default function SendMoney({ users }) {
       ) : (
         <AddFriendList friends={friends}></AddFriendList>
       )}
-      <div className="ml-auto mr-auto mt-auto ">
-        <PaginationPrevButton></PaginationPrevButton>
-        <PaginationNextButton></PaginationNextButton>
-      </div>
+      <div className="ml-auto mr-auto mt-auto "></div>
     </div>
   );
 }

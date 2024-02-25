@@ -2,8 +2,6 @@ import React from "react";
 import TransactionsHeaders from "./TransactionsHeaders";
 import TransactionsLabel from "./TransactionsLabel";
 import TransactionsRecordsList from "./TransactionsRecordsList";
-import PaginationPrevButton from "./PaginationPrevButton";
-import PaginationNextButton from "./PaginationNextButton";
 
 export default function TransactionsBox() {
   return (
@@ -11,10 +9,7 @@ export default function TransactionsBox() {
       <TransactionsHeaders></TransactionsHeaders>
       <TransactionsLabel></TransactionsLabel>
       <TransactionsRecordsList></TransactionsRecordsList>
-      <div className="ml-auto mr-auto mt-auto ">
-        <PaginationPrevButton></PaginationPrevButton>
-        <PaginationNextButton></PaginationNextButton>
-      </div>
+      <div className="ml-auto mr-auto mt-auto "></div>
     </div>
   );
 }
