@@ -6,7 +6,7 @@ import { user } from "@/stores/atom/user";
 export default function () {
   const userAtomLoadable = useRecoilValueLoadable(user);
   return (
-    <div className="w-full grid grid-cols-10 mt-3 px-3 text-light  gap-5 text-sm md:text-base">
+    <div className="w-full grid grid-cols-10 mt-3 px-3 text-light pb-3  gap-5 text-sm md:text-base">
       {userAtomLoadable.state === "loading" ? (
         <p>Loading...</p>
       ) : (

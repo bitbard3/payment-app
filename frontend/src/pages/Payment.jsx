@@ -9,16 +9,6 @@ import SendMoney from "../components/SendMoney";
 import { UserIcon } from "@heroicons/react/24/outline";
 
 export default function Payment() {
-  const userList = [
-    { firstName: "Ansh", lastName: "Arora" },
-    { firstName: "Chirag", lastName: "Lalwani" },
-    { firstName: "Jalaj", lastName: "Daga" },
-    { firstName: "Harkirat", lastName: "Singh" },
-    { firstName: "Ansh", lastName: "Arora" },
-    { firstName: "Ansh", lastName: "Arora" },
-    { firstName: "Ansh", lastName: "Arora" },
-    { firstName: "Ansh", lastName: "Arora" },
-  ];
   const sideBar = useRecoilValue(sideBarOpen);
 
   return (
@@ -51,7 +41,7 @@ export default function Payment() {
               : `xl:col-start-4 xl:col-span-8 col-span-12`
           }`}
         >
-          <SendMoney users={userList}></SendMoney>
+          <SendMoney></SendMoney>
         </div>
 
         <MobileNav></MobileNav>

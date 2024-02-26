@@ -34,7 +34,7 @@ export default function Transactions() {
           ></Header>
         </div>
         <div
-          className={`row-span-8 mt-10 bg-box bg-opacity-35 md:mx-10 xl:mx-0 md:rounded-2xl mb-5 flex flex-col items-center justify-center ${
+          className={`row-span-8 mt-10 bg-box bg-opacity-35 md:mx-10 xl:mx-0 md:rounded-2xl mb-5 flex flex-col items-center justify-center overflow-y-scroll ${
             !sideBar
               ? `xl:col-start-2 col-span-12 xl:col-span-10`
               : `xl:col-start-4 xl:col-span-8 col-span-12`

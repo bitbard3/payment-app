@@ -5,7 +5,7 @@ import SendMoneyHeader from "./SendMoneyHeader";
 import { toast, useToast } from "@/components/ui/use-toast";
 import AddFriendList from "./AddFriendList";
 import axios from "axios";
-export default function SendMoney({ users }) {
+export default function SendMoney() {
   const [currentTab, setCurrentTab] = useState("money");
   const [searchInput, setSearchInput] = useState("");
   const [friends, setFriends] = useState([]);
@@ -41,7 +41,7 @@ export default function SendMoney({ users }) {
       ></SendMoneyHeader>
       <MoneyIndex></MoneyIndex>
       {currentTab == "money" ? (
-        <MoneyUserList users={users}></MoneyUserList>
+        <MoneyUserList></MoneyUserList>
       ) : (
         <AddFriendList friends={friends}></AddFriendList>
       )}
