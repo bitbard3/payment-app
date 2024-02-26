@@ -30,14 +30,57 @@ export const transfer = async (req, res) => {
         }
         await User.updateOne({ _id: sender }, { $inc: { balance: - req.body.amount } }).session(session)
         await User.updateOne({ _id: receiver }, { $inc: { balance: req.body.amount } }).session(session)
-        await Transaction.create([{
+        const transaction = await Transaction.create([{
             sender,
             receiver,
             amount: req.body.amount,
             date: new Date()
         }], { session: session })
+        const transactionId = transaction[0]._id;
         await session.commitTransaction()
-        return res.json({ msg: 'Transaction successful' })
+        const transactionInfo = await Transaction.aggregate([
+            {
+                $match: {
+                    _id: new mongoose.Types.ObjectId(transactionId)
+                }
+            },
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "sender",
+                    foreignField: "_id",
+                    as: "senderInfo"
+                }
+            },
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "receiver",
+                    foreignField: "_id",
+                    as: "receiverInfo"
+                }
+            },
+            {
+                $unwind: "$senderInfo"
+            },
+            {
+                $unwind: "$receiverInfo"
+            },
+            {
+                $project: {
+                    _id: 1,
+                    amount: 1,
+                    date: 1,
+                    senderId: "$senderInfo._id",
+                    receiverId: "$receiverInfo._id",
+                    senderFirstName: "$senderInfo.firstName",
+                    senderLastName: "$senderInfo.lastName",
+                    receiverFirstName: "$receiverInfo.firstName",
+                    receiverLastName: "$receiverInfo.lastName"
+                }
+            }
+        ]);
+        return res.json({ msg: 'Transaction successful', transactionInfo })
     } catch (error) {
         return res.status(400).json({ msg: "Transaction failed" })
     }
