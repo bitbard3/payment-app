@@ -3,7 +3,6 @@ import MoneyUser from "./MoneyUser";
 import { useRecoilState } from "recoil";
 import { user } from "@/stores/atom/user";
 import { toast, useToast } from "@/components/ui/use-toast";
-
 import axios from "axios";
 import {
   Dialog,
