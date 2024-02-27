@@ -32,7 +32,23 @@ export const signup = async (req, res) => {
         return res.status(400).json({ msg: "Error occured" })
     }
 }
-
+export const loggedUser = (req, res) => {
+    const header = req.headers.authorization
+    if (!header || !header.startsWith('Bearer ')) {
+        res.status(403).json({ msg: "Not authorizated" })
+        return
+    }
+    const token = header.split(' ')[1]
+    try {
+        const jwtDecoded = jwt.verify(token, process.env.JWT_SECRET)
+        req.username = jwtDecoded.username
+        req.userId = jwtDecoded.userId
+        res.json({ msg: "Verified" })
+    } catch (error) {
+        res.status(403).json({ msg: "Not authorizated" })
+        return
+    }
+}
 export const login = (req, res) => {
     const validInput = userSchema.pick({ username: true, password: true }).safeParse(req.body)
     const userExist = req.user
