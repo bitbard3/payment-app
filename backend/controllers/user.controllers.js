@@ -19,7 +19,7 @@ export const signup = async (req, res) => {
                 password: req.body.password,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
-                balance: parseFloat((Math.random() * 1000).toFixed(2))
+                balance: parseInt((Math.random() * 1000))
             })
         }
         else {

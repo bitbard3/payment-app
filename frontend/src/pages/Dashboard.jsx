@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import NavItemsList from "../components/NavItemsList";
 import Card from "../components/Card";
 import Money from "../components/Money";
@@ -8,12 +8,7 @@ import { sideBarOpen } from "../stores/atom/sideBar";
 import MobileNav from "../components/MobileNav";
 import Gradients from "../components/Gradients";
 import { UserIcon } from "@heroicons/react/24/outline";
-const userList = [
-  { firstName: "Ansh", lastName: "Arora" },
-  { firstName: "Chirag", lastName: "Lalwani" },
-  { firstName: "Jalaj", lastName: "Daga" },
-  { firstName: "Harkirat", lastName: "Singh" },
-];
+
 export default function Dashboard() {
   const sideBar = useRecoilValue(sideBarOpen);
   return (
@@ -52,7 +47,7 @@ export default function Dashboard() {
             !sideBar ? ` col-span-12` : `xl:col-span-10`
           }`}
         >
-          <Money users={userList}></Money>
+          <Money></Money>
         </div>
 
         <Gradients></Gradients>
