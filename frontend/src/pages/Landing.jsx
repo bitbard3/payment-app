@@ -3,12 +3,25 @@ import { NavLink } from "react-router-dom";
 import heroImg from "../images/hero.svg";
 import { useNavigate } from "react-router-dom";
 import { startTransition } from "react";
+import axios from "axios";
 export default function Landing() {
   const navigate = useNavigate();
-  const onClickHandler = () => {
-    startTransition(() => {
-      navigate("/dashboard");
-    });
+  const onClickHandler = async () => {
+    try {
+      const valid = await axios.get(
+        "http://localhost:3000/api/v1/user/validUser",
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      startTransition(() => {
+        navigate("/dashboard");
+      });
+    } catch (error) {
+      navigate("/login");
+    }
   };
   return (
     <div>
