@@ -7,9 +7,9 @@ export default function HeaderPopover() {
     <div className="flex flex-col gap-3">
       <Dialog>
         <DialogTrigger>
-          <button className="text-light border-b-[1px] text-sm md:text-base border-neutral-400 pb-3">
+          <div className="text-light border-b-[1px] text-sm md:text-base border-neutral-400 pb-3">
             Friend Requests
-          </button>
+          </div>
         </DialogTrigger>
         <AddFriendDialog></AddFriendDialog>
       </Dialog>

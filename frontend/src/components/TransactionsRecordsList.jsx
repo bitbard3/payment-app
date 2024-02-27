@@ -10,18 +10,21 @@ export default function () {
       {userAtomLoadable.state === "loading" ? (
         <p>Loading...</p>
       ) : (
-        userAtomLoadable.contents.transactions.map((transaction, index) => (
-          <TransactionsRecords
-            key={transaction._id}
-            userId={userAtomLoadable.contents.userId}
-            sender={transaction.senderId}
-            senderName={`${transaction.senderFirstName} ${transaction.senderLastName}`}
-            receiverName={`${transaction.receiverFirstName} ${transaction.receiverLastName}`}
-            amount={transaction.amount}
-            index={index + 1}
-            date={transaction.date}
-          />
-        ))
+        userAtomLoadable.contents.transactions
+          .slice()
+          .reverse()
+          .map((transaction, index) => (
+            <TransactionsRecords
+              key={transaction._id}
+              userId={userAtomLoadable.contents.userId}
+              sender={transaction.senderId}
+              senderName={`${transaction.senderFirstName} ${transaction.senderLastName}`}
+              receiverName={`${transaction.receiverFirstName} ${transaction.receiverLastName}`}
+              amount={transaction.amount}
+              index={index + 1}
+              date={transaction.date}
+            />
+          ))
       )}
     </div>
   );

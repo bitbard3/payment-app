@@ -54,6 +54,7 @@ export default function EditAccount() {
       <div className="w-[80%] md:pl-10 h-[70%] flex flex-col justify-center gap-10 px-3 md:px-8 mt-16">
         <EditAccountInput
           disabled={true}
+          value={userInfo.username}
           label={"Username"}
           type={"text"}
           id={"usernameId"}

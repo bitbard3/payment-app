@@ -11,18 +11,10 @@ export default function AddFriendDialog() {
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>
-          <div className="">
-            <p>Friend Requests</p>
-          </div>
-        </DialogTitle>
+        <DialogTitle>Friend Requests</DialogTitle>
         <DialogDescription>
-          <div className="">
-            <p>
-              Add friends to quickly send them payments without the hassle to
-              search them
-            </p>
-          </div>
+          Add friends to quickly send them payments without the hassle to search
+          them
         </DialogDescription>
       </DialogHeader>
       <AddFriendRequestList></AddFriendRequestList>

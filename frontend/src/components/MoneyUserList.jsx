@@ -64,16 +64,21 @@ export default function MoneyUserList() {
   };
   return (
     <div className="w-full grid grid-cols-10 mt-3 px-3 text-light  gap-5 text-sm md:text-base">
-      {userInfo.friendsInfo.map((user, index) => {
-        return (
-          <MoneyUser
-            index={index + 1}
-            firstName={user.firstName}
-            lastName={user.lastName}
-            onModalHandler={() => onModalHandler(user._id)}
-          ></MoneyUser>
-        );
-      })}
+      {userInfo.friendsInfo
+        .slice()
+        .reverse()
+        .map((user, index) => {
+          return (
+            <MoneyUser
+              index={index + 1}
+              firstName={user.firstName}
+              lastName={user.lastName}
+              key={user._id}
+              onModalHandler={() => onModalHandler(user._id)}
+            ></MoneyUser>
+          );
+        })}
+
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
