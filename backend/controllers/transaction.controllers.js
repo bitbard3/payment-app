@@ -1,6 +1,6 @@
 import { Transaction, User } from "../db/db.js"
 import mongoose from 'mongoose'
-import { transferSchmea } from "./validations/account.validation.js"
+import { addMoneySchema, transferSchmea } from "./validations/account.validation.js"
 
 export const transfer = async (req, res) => {
     const validInput = transferSchmea.safeParse(req.body)
@@ -138,7 +138,22 @@ export const transactions = async (req, res) => {
         ]);
         return res.json({ transactions });
     } catch (error) {
-        console.log(error)
+        res.status(500).json({ msg: "Internal server error" })
+        return
+    }
+
+}
+export const addMoney = async (req, res) => {
+    const userId = req.userId
+    const amount = req.body.amount
+    const valid = addMoneySchema.safeParse({ amount })
+    if (!valid.success) {
+        return res.status(411).json({ msg: "Invalid input" })
+    }
+    try {
+        await User.updateOne({ _id: userId }, { $inc: { balance: amount } })
+        return res.json({ msg: 'Money added' })
+    } catch (error) {
         res.status(500).json({ msg: "Internal server error" })
         return
     }
