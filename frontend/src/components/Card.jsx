@@ -1,26 +1,106 @@
-import React from "react";
+import React, { useState } from "react";
 import CardValue from "./CardValue";
-import { useRecoilValueLoadable } from "recoil";
+import { useRecoilValueLoadable, useRecoilState } from "recoil";
 import { user } from "@/stores/atom/user";
-
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import { toast, useToast } from "@/components/ui/use-toast";
+import axios from "axios";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 export default function Card({}) {
   const userAtomLoadable = useRecoilValueLoadable(user);
+  const [userInfo, setUserInfo] = useRecoilState(user);
+  const { toast } = useToast();
+  const [amount, setAmount] = useState("");
+  const [open, setOpen] = useState(false);
+  const onPayHandler = async () => {
+    if (!amount) {
+      toast({
+        variant: "destructive",
+        description: `Amount cant be 0!`,
+      });
+    } else if (parseFloat(amount) == parseInt(amount)) {
+      try {
+        const addMoney = await axios.post(
+          "http://localhost:3000/api/v1/transaction/addMoney",
+          { amount: parseInt(amount) },
+          {
+            headers: { Authorization: localStorage.getItem("token") },
+          }
+        );
+        setUserInfo((prev) => ({
+          ...prev,
+          balance: prev.balance + parseInt(amount),
+        }));
+        toast({
+          variant: "success",
+          description: `Money added successfully`,
+        });
+        setAmount("");
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          description: `Something went wrong`,
+        });
+      } finally {
+        setOpen(false);
+      }
+    } else {
+      toast({
+        variant: "destructive",
+        description: `Cant add money in decimal`,
+      });
+      setAmount("");
+    }
+  };
   return (
     <div className="flex md:justify-around justify-center items-center px-5 h-full">
-      <div className="flex flex-col justify-center items-center md:h-4/5 md:w-[40%] bg-dark bg-opacity-9 w-[60%] h-[85%] xl:w-[20%] xl:h-[75%] lg:h-[70%] lg:w-[35%] rounded-xl py-8 hover:scale-105 delay-100">
+      <div className="flex flex-col justify-center items-center md:h-4/5 md:w-[40%] bg-dark w-[60%] h-[85%] xl:w-[20%] xl:h-[75%] lg:h-[70%] lg:w-[35%] rounded-xl py-8  delay-100 relative">
         <p className="text-neutral-400 text-base md:text-lg">Balance</p>
         <CardValue value={userAtomLoadable.contents.balance}></CardValue>
+        <div className="absolute top-4 right-4">
+          <button onClick={() => setOpen(true)} className="hover:scale-110">
+            <PlusCircleIcon class="h-6 w-6 text-gray-500" />
+          </button>
+        </div>
       </div>
-      <div className="md:flex flex-col items-center justify-center md:h-4/5 md:w-[40%] bg-dark bg-opacity-9 w-[50%] xl:w-[20%] xl:h-[75%] h-full lg:h-[70%] lg:w-[35%] rounded-xl py-8 hover:scale-105 delay-100 hidden">
+      <div className="md:flex flex-col items-center justify-center md:h-4/5 md:w-[40%] bg-dark w-[50%] xl:w-[20%] xl:h-[75%] h-full lg:h-[70%] lg:w-[35%] rounded-xl py-8  delay-100 hidden">
         <p className="text-neutral-400 text-base md:text-lg">Transactions</p>
         <CardValue
           value={userAtomLoadable.contents.transactionsLength}
         ></CardValue>
       </div>
-      <div className="xl:flex flex-col items-center justify-center md:h-4/5 md:w-[20%] bg-dark bg-opacity-9 w-[50%] xl:w-[20%] xl:h-[75%] lg:h-[70%] lg:w-[35%] h-full rounded-xl py-8 hover:scale-105 delay-100 hidden">
+      <div className="xl:flex flex-col items-center justify-center md:h-4/5 md:w-[20%] bg-dark w-[50%] xl:w-[20%] xl:h-[75%] lg:h-[70%] lg:w-[35%] h-full rounded-xl py-8  delay-100 hidden">
         <p className="text-neutral-400 text-base md:text-lg">Friends</p>
         <CardValue value={userAtomLoadable.contents.friendsLength}></CardValue>
       </div>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Enter Amount</DialogTitle>
+            <DialogDescription>Enter an amount less than 10k</DialogDescription>
+          </DialogHeader>
+          <div className="flex w-full md:justify-around justify-between mt-5">
+            <input
+              type="number"
+              onChange={(e) => setAmount(e.target.value)}
+              className="border border-dark py-2 md:px-3 px-2 rounded-md"
+              placeholder="Enter an amount"
+            />
+            <button
+              onClick={onPayHandler}
+              className="border md:px-10 px-5 bg-stone-900 text-light rounded-md"
+            >
+              Pay
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
