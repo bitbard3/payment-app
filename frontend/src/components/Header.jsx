@@ -10,7 +10,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import HeaderPopover from "./HeaderPopover";
-
 export default function Header({ icon, text }) {
   const userAtomLoadable = useRecoilValueLoadable(user);
   return (
@@ -19,7 +18,7 @@ export default function Header({ icon, text }) {
         <NavButton></NavButton>
       </span>
       <HeaderHeading text={text}></HeaderHeading>
-      <div className="ms-auto">
+      <div className="ms-auto relative">
         <Popover>
           <PopoverTrigger>
             <HeaderAccount
@@ -30,9 +29,14 @@ export default function Header({ icon, text }) {
             ></HeaderAccount>
           </PopoverTrigger>
           <PopoverContent>
-            <HeaderPopover></HeaderPopover>
+            <HeaderPopover
+              friendsReq={userAtomLoadable.contents.friendRequestsInfo.length}
+            ></HeaderPopover>
           </PopoverContent>
         </Popover>
+        {userAtomLoadable.contents.friendRequestsInfo.length > 0 && (
+          <div className="bg-[#b73a3a] absolute h-3 w-3 rounded-full top-[2px] -left-[3px]"></div>
+        )}
       </div>
     </div>
   );
