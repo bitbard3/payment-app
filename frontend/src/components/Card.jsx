@@ -19,10 +19,10 @@ export default function Card({}) {
   const [amount, setAmount] = useState("");
   const [open, setOpen] = useState(false);
   const onPayHandler = async () => {
-    if (!amount) {
+    if (!amount || amount < 0) {
       toast({
         variant: "destructive",
-        description: `Amount cant be 0!`,
+        description: `Invalid Amount`,
       });
     } else if (parseFloat(amount) == parseInt(amount)) {
       try {
