@@ -65,7 +65,7 @@ export default function Card({}) {
         <CardValue value={userAtomLoadable.contents.balance}></CardValue>
         <div className="absolute top-4 right-4">
           <button onClick={() => setOpen(true)} className="hover:scale-110">
-            <PlusCircleIcon class="h-6 w-6 text-gray-500" />
+            <PlusCircleIcon className="h-6 w-6 text-gray-500" />
           </button>
         </div>
       </div>
