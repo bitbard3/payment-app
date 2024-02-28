@@ -5,5 +5,5 @@ export const transferSchmea = z.object({
     amount: z.number().positive()
 })
 export const addMoneySchema = z.object({
-    amount: z.number().int().lte(9999)
+    amount: z.number().positive().int().lte(9999)
 })
