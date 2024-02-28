@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import AddFriendRequest from "./AddFriendRequest";
 import axios from "axios";
 import { toast, useToast } from "@/components/ui/use-toast";
-
+import friendReq from "../images/friendReq.svg";
 export default function AddFriendRequestList() {
   const [userInfo, setUserInfo] = useRecoilState(user);
   const [filteredFriends, setFilterFriends] = useState([]);
@@ -59,18 +59,27 @@ export default function AddFriendRequestList() {
     } catch (error) {}
   };
   return (
-    <div className="flex flex-col mt-5 italic">
-      {filteredFriends.map((friendReq) => {
-        return (
-          <AddFriendRequest
-            key={friendReq._id}
-            firstName={friendReq.firstName}
-            lastName={friendReq.lastName}
-            onAddHandler={() => onAddHandler(friendReq._id, friendReq)}
-            onRemoveHandler={() => onRemoveHandler(friendReq._id)}
-          ></AddFriendRequest>
-        );
-      })}
-    </div>
+    <>
+      {filteredFriends.length > 0 ? (
+        <div className="flex flex-col mt-5 italic">
+          {filteredFriends.map((friendReq) => {
+            return (
+              <AddFriendRequest
+                key={friendReq._id}
+                firstName={friendReq.firstName}
+                lastName={friendReq.lastName}
+                onAddHandler={() => onAddHandler(friendReq._id, friendReq)}
+                onRemoveHandler={() => onRemoveHandler(friendReq._id)}
+              ></AddFriendRequest>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="flex justify-center h-full flex-col items-center gap-y-10">
+          <p className="text-dark font-semibold">No friend requests</p>
+          <img src={friendReq} className="h-1/2" alt="" />
+        </div>
+      )}
+    </>
   );
 }
