@@ -34,7 +34,12 @@ export default function AddFriendRequestList() {
         variant: "success",
         description: `Friend added successfully!`,
       });
-    } catch (error) {}
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description: `Something went wrong!`,
+      });
+    }
   };
   const onRemoveHandler = async (friendId) => {
     try {
@@ -56,7 +61,12 @@ export default function AddFriendRequestList() {
         variant: "default",
         description: `Friend request removed!`,
       });
-    } catch (error) {}
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description: `Something went wrong!`,
+      });
+    }
   };
   return (
     <>

@@ -56,7 +56,12 @@ export default function AddFriendList({ friends }) {
         variant: "success",
         description: `Friend request sent!`,
       });
-    } catch (error) {}
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description: `Something went wrong!`,
+      });
+    }
   };
   const onPayHandler = async () => {
     try {

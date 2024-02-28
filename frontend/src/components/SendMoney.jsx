@@ -32,7 +32,10 @@ export default function SendMoney() {
         setFriends(userList.data);
       }
     } catch (error) {
-      console.log(error);
+      toast({
+        variant: "destructive",
+        description: `Something went wrong!`,
+      });
     }
   };
   return (
