@@ -57,6 +57,30 @@ export default function LoginForm() {
       setbuttonDisable(false);
     }
   };
+  const testLoginHandler = async () => {
+    setbuttonDisable(true);
+    try {
+      const res = await axios.post("http://localhost:3000/api/v1/user/login", {
+        username: "test",
+        password: "1234",
+      });
+      const token = res.data.token;
+      localStorage.setItem("token", `Bearer ${token}`);
+      navigate("/dashboard");
+      toast({
+        variant: "success",
+        description: `Logged in succesfully`,
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      });
+    } finally {
+      setbuttonDisable(false);
+    }
+  };
   return (
     <div className="h-[80%] md:h-[70%] w-[90%] md:w-2/3 lg:w-[60%] xl:w-1/3 xl:h-[80%] border relative border-stone-500 border-opacity-80 rounded-lg py-20 form">
       <div className="flex flex-col justify-around items-center h-full">
@@ -100,6 +124,13 @@ export default function LoginForm() {
           disabled={buttonDisable}
           onClick={onLoginHandler}
           text={"Login"}
+        ></FormButton>
+      </div>
+      <div className="ml-auto absolute left-[13%] bottom-[5%] md:bottom-[10%]">
+        <FormButton
+          disabled={buttonDisable}
+          onClick={testLoginHandler}
+          text={"Test"}
         ></FormButton>
       </div>
     </div>
