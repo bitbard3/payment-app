@@ -7,19 +7,23 @@ import axios from "axios";
 export default function Landing() {
   const navigate = useNavigate();
   const onClickHandler = async () => {
-    try {
-      const valid = await axios.get(
-        "http://localhost:3000/api/v1/user/validUser",
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      );
-      startTransition(() => {
-        navigate("/dashboard");
-      });
-    } catch (error) {
+    if (localStorage.getItem("token")) {
+      try {
+        const valid = await axios.get(
+          "http://localhost:3000/api/v1/user/validUser",
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        );
+        startTransition(() => {
+          navigate("/dashboard");
+        });
+      } catch (error) {
+        navigate("/login");
+      }
+    } else {
       navigate("/login");
     }
   };
