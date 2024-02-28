@@ -6,10 +6,12 @@ import Dashboard from "./pages/Dashboard";
 import Account from "./pages/Account";
 import Payment from "./pages/Payment";
 import Transactions from "./pages/Transactions";
+import Error404 from "./pages/Error404";
 function App() {
   return (
     <>
       <Routes>
+        <Route path="*" Component={Error404} />
         <Route path="/" Component={Landing}></Route>
         <Route path="/signup" Component={Signup}></Route>
         <Route path="/login" Component={Login}></Route>
