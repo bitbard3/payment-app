@@ -25,6 +25,7 @@ export const fetchUser = selector({
                 transactions: [...transactions.data.transactions],
                 friendsLength: [...user.data.userData.friendsInfo].length,
                 transactionsLength: [...transactions.data.transactions].length,
+                friendRequestsLength: [...user.data.userData.friendRequestsInfo].length,
             };
             if (user.status == 200 && transactions.status) {
             }

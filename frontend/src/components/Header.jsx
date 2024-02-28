@@ -30,11 +30,11 @@ export default function Header({ icon, text }) {
           </PopoverTrigger>
           <PopoverContent>
             <HeaderPopover
-              friendsReq={userAtomLoadable.contents.friendRequestsInfo.length}
+              friendsReq={userAtomLoadable.contents.friendRequestsLength}
             ></HeaderPopover>
           </PopoverContent>
         </Popover>
-        {userAtomLoadable.contents.friendRequestsInfo.length > 0 && (
+        {userAtomLoadable.contents.friendRequestsLength > 0 && (
           <div className="bg-[#b73a3a] absolute h-3 w-3 rounded-full top-[2px] -left-[3px]"></div>
         )}
       </div>
