@@ -8,7 +8,7 @@ import axios from "axios";
 import { formSchema } from "@/validation/form.validation";
 import { useNavigate } from "react-router-dom";
 
-export default function LoginForm() {
+export default function LoginForm({ url }) {
   const [emailError, setEmailError] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -31,7 +31,11 @@ export default function LoginForm() {
         );
         const token = res.data.token;
         localStorage.setItem("token", `Bearer ${token}`);
-        navigate("/dashboard");
+        if (url) {
+          navigate(url);
+        } else {
+          navigate("/dashboard");
+        }
         toast({
           variant: "success",
           description: `Logged in succesfully`,
@@ -66,7 +70,11 @@ export default function LoginForm() {
       });
       const token = res.data.token;
       localStorage.setItem("token", `Bearer ${token}`);
-      navigate("/dashboard");
+      if (url) {
+        navigate(url);
+      } else {
+        navigate("/dashboard");
+      }
       toast({
         variant: "success",
         description: `Logged in succesfully`,
