@@ -41,9 +41,7 @@ export const loggedUser = (req, res) => {
     const token = header.split(' ')[1]
     try {
         const jwtDecoded = jwt.verify(token, process.env.JWT_SECRET)
-        req.username = jwtDecoded.username
-        req.userId = jwtDecoded.userId
-        res.json({ msg: "Verified" })
+        res.json({ userId: jwtDecoded.userId })
     } catch (error) {
         res.status(403).json({ msg: "Not authorizated" })
         return

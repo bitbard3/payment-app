@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import { user } from "@/stores/atom/user";
 export default function AccountView() {
   const userInfo = useRecoilValue(user);
-  const url = `http://localhost:5173/user/${userInfo.username}`;
+  const url = `http://localhost:5173/user/${userInfo.username}?id=${userInfo.userId}`;
   return (
     <div className="h-1/2 w-3/4 flex flex-col items-center relative">
       <QRCodeCanvas value={url} size={200} />
