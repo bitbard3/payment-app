@@ -32,7 +32,7 @@ export default function LoginForm({ url }) {
         const token = res.data.token;
         localStorage.setItem("token", `Bearer ${token}`);
         if (url) {
-          navigate(url);
+          window.location.href = url;
         } else {
           navigate("/dashboard");
         }
@@ -71,7 +71,7 @@ export default function LoginForm({ url }) {
       const token = res.data.token;
       localStorage.setItem("token", `Bearer ${token}`);
       if (url) {
-        navigate(url);
+        window.location.href = url;
       } else {
         navigate("/dashboard");
       }
