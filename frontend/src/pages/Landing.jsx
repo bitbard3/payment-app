@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import heroImg from "../images/hero.svg";
 import { useNavigate } from "react-router-dom";
@@ -6,8 +6,10 @@ import { startTransition } from "react";
 import axios from "axios";
 export default function Landing() {
   const navigate = useNavigate();
+  const [disabled, setDisabled] = useState(false);
   const onClickHandler = async () => {
     if (localStorage.getItem("token")) {
+      setDisabled(true);
       try {
         const valid = await axios.get(
           "https://payment-app-topaz.vercel.app/api/v1/user/validUser",
@@ -22,9 +24,11 @@ export default function Landing() {
         });
       } catch (error) {
         navigate("/login");
+        setDisabled(false);
       }
     } else {
       navigate("/login");
+      setDisabled(false);
     }
   };
   return (
@@ -51,8 +55,15 @@ export default function Landing() {
               <div className="glow md:w-[70px] w-[60px] h-[60px] md:h-[70px] absolute rotate-45 hover:scale-110 delay-150"></div>
               <button
                 onClick={onClickHandler}
-                className="text-light hero-button inline-block text-sm md:text-base  space-y-2  bg-dark  rounded-lg z-10 relative px-7 md:px-10 px-md:16 py-3 delay-150"
+                className="text-light flex items-center hero-button  text-sm md:text-base  space-y-2  bg-dark  rounded-lg z-10 relative px-7 md:px-10 px-md:16 py-3 delay-150"
               >
+                {disabled && (
+                  <div
+                    className="animate-spin  mr-3 inline-block size-5 border-[3px] border-current border-t-transparent rounded-full"
+                    role="status"
+                    aria-label="loading"
+                  ></div>
+                )}
                 Get started
               </button>
             </div>
