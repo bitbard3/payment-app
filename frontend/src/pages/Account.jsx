@@ -6,7 +6,7 @@ import Header from "../components/Header";
 import MobileNav from "../components/MobileNav";
 import Gradients from "../components/Gradients";
 import EditAccount from "../components/EditAccount";
-import { HomeIcon } from "@heroicons/react/24/outline";
+import { UserIcon } from "@heroicons/react/24/outline";
 export default function Account() {
   const val = false;
   const sideBar = useRecoilValue(sideBarOpen);
@@ -30,7 +30,7 @@ export default function Account() {
           <Header
             text={"Account"}
             buttonText={"Home"}
-            icon={<HomeIcon className="text-neutral-300 h-5 md:h-6"></HomeIcon>}
+            icon={<UserIcon className="text-neutral-300 h-5 md:h-6"></UserIcon>}
           ></Header>
         </div>
         <div
