@@ -13,12 +13,14 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 export default function Card({}) {
+  const [disabled, setDisabled] = useState(false);
   const userAtomLoadable = useRecoilValueLoadable(user);
   const [userInfo, setUserInfo] = useRecoilState(user);
   const { toast } = useToast();
   const [amount, setAmount] = useState("");
   const [open, setOpen] = useState(false);
   const onPayHandler = async () => {
+    setDisabled(true);
     if (!amount || amount < 0) {
       toast({
         variant: "destructive",
@@ -49,6 +51,7 @@ export default function Card({}) {
         });
       } finally {
         setOpen(false);
+        setDisabled(false);
       }
     } else {
       toast({
@@ -56,6 +59,7 @@ export default function Card({}) {
         description: `Cant add money in decimal`,
       });
       setAmount("");
+      setDisabled(false);
     }
   };
   return (
@@ -94,8 +98,16 @@ export default function Card({}) {
             />
             <button
               onClick={onPayHandler}
-              className="border md:px-10 px-5 bg-stone-900 text-light rounded-md"
+              disabled={disabled}
+              className="border md:px-10 disabled:bg-stone-600 flex items-center px-5 bg-stone-900 text-light rounded-md"
             >
+              {disabled && (
+                <div
+                  className="animate-spin  mr-3 inline-block size-5 border-[3px] border-current border-t-transparent rounded-full"
+                  role="status"
+                  aria-label="loading"
+                ></div>
+              )}
               Pay
             </button>
           </div>

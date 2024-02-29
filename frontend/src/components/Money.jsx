@@ -11,7 +11,7 @@ export default function Money() {
   const navigate = useNavigate();
   const userInfo = useRecoilValue(user);
   return (
-    <div className="flex flex-col w-full h-full py-5 px-6 relative">
+    <div className="flex flex-col w-full h-full py-5 px-6 relative overflow-scroll">
       <MoneyHeader></MoneyHeader>
       {userInfo.friendsLength == 0 ? (
         <>

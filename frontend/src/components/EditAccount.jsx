@@ -15,6 +15,7 @@ export default function EditAccount() {
   const [lastName, setLastName] = useState(userInfo.lastName);
   const { toast } = useToast();
   const [editAccount, setEditAccount] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const onFirstNameChange = (e) => {
     setFirstName(e.target.value);
   };
@@ -22,6 +23,7 @@ export default function EditAccount() {
     setLastName(e.target.value);
   };
   const onClickHandler = async () => {
+    setDisabled(true);
     try {
       await axios.put(
         "https://payment-app-topaz.vercel.app/api/v1/user",
@@ -45,10 +47,13 @@ export default function EditAccount() {
         description: `Account updated successfully`,
       });
     } catch (error) {
+      setDisabled(false);
       toast({
         variant: "destructive",
         description: `Something went wrong!`,
       });
+    } finally {
+      setDisabled(false);
     }
   };
   return (
@@ -96,7 +101,10 @@ export default function EditAccount() {
               id={"LastNameId"}
               onChange={onLastNameChange}
             ></EditAccountInput>
-            <EditAccountButton onClick={onClickHandler}></EditAccountButton>
+            <EditAccountButton
+              disabled={disabled}
+              onClick={onClickHandler}
+            ></EditAccountButton>
           </div>
         </>
       )}

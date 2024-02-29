@@ -17,11 +17,13 @@ export default function MoneyUserList() {
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState("");
   const [friend, setFriend] = useState("");
+  const [disabled, setDisabled] = useState(false);
   const onModalHandler = (friendId) => {
     setOpen(true);
     setFriend(friendId);
   };
   const onPayHandler = async () => {
+    setDisabled(true);
     try {
       const transfer = await axios.post(
         "https://payment-app-topaz.vercel.app/api/v1/transaction/transfer",
@@ -41,6 +43,7 @@ export default function MoneyUserList() {
         description: `Money transfered successfully`,
       });
     } catch (error) {
+      setDisabled(false);
       if (error.response.status == 400) {
         toast({
           variant: "destructive",
@@ -59,6 +62,7 @@ export default function MoneyUserList() {
       }
     } finally {
       setOpen(false);
+      setDisabled(false);
     }
   };
   return (
@@ -95,8 +99,15 @@ export default function MoneyUserList() {
             />
             <button
               onClick={onPayHandler}
-              className="border md:px-10 px-5 bg-stone-900 text-light rounded-md"
+              className="border md:px-10 disabled:bg-stone-600 flex items-center px-5 bg-stone-900 text-light rounded-md"
             >
+              {disabled && (
+                <div
+                  className="animate-spin  mr-3 inline-block size-5 border-[3px] border-current border-t-transparent rounded-full"
+                  role="status"
+                  aria-label="loading"
+                ></div>
+              )}
               Pay
             </button>
           </div>
