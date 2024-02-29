@@ -7,6 +7,7 @@ import Account from "./pages/Account";
 import Payment from "./pages/Payment";
 import Transactions from "./pages/Transactions";
 import Error404 from "./pages/Error404";
+import UserQr from "./pages/UserQr";
 function App() {
   return (
     <>
@@ -19,6 +20,7 @@ function App() {
         <Route path="/account" Component={Account}></Route>
         <Route path="/payment" Component={Payment}></Route>
         <Route path="/transactions" Component={Transactions}></Route>
+        <Route path="/user/:username" Component={UserQr}></Route>
       </Routes>
     </>
   );

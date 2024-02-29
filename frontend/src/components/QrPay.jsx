@@ -109,15 +109,12 @@ export default function QrPay({ username, userId }) {
   };
   return (
     <>
-      <div className="bg-dark h-[95%] md:w-[70%] xl:w-[40%] w-[90%] rounded-lg flex flex-col items-center justify-around py-10">
+      <div className="bg-dark h-[95%] md:w-[70%] xl:w-[40%] w-[90%] rounded-lg flex flex-col items-center justify-around py-10 relative">
         <div className="flex flex-col justify-center items-center">
           <QRCodeCanvas value={url} size={200} />
           <p className="text-stone-400 text-lg mt-5">@{username}</p>
         </div>
-        <div className="flex gap-20 items-center justify-center">
-          <button className="px-4 py-1 text-stone-950 bg-light rounded-md">
-            Add
-          </button>
+        <div className="flex items-center justify-center">
           <button
             onClick={onModalHandler}
             className="px-4 py-1 text-stone-950 bg-light rounded-md"
