@@ -39,7 +39,7 @@ export default function AddFriendList({ friends }) {
   const onClickHandler = async (friendId) => {
     try {
       const sendFriendReq = await axios.post(
-        "http://localhost:3000/api/v1/user/addFriendRequest",
+        "https://payment-app-topaz.vercel.app/api/v1/user/addFriendRequest",
         { friend: friendId },
         {
           headers: {
@@ -66,7 +66,7 @@ export default function AddFriendList({ friends }) {
   const onPayHandler = async () => {
     try {
       const transfer = await axios.post(
-        "http://localhost:3000/api/v1/transaction/transfer",
+        "https://payment-app-topaz.vercel.app/api/v1/transaction/transfer",
         { receiver: friend, amount: parseInt(amount) },
         {
           headers: { Authorization: localStorage.getItem("token") },

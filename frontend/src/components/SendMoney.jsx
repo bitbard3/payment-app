@@ -18,7 +18,7 @@ export default function SendMoney() {
   const onClickHandler = async () => {
     try {
       const userList = await axios.get(
-        `http://localhost:3000/api/v1/user/bulk?filter=${searchInput}`,
+        `https://payment-app-topaz.vercel.app/api/v1/user/bulk?filter=${searchInput}`,
         {
           headers: { Authorization: localStorage.getItem("token") },
         }

@@ -10,7 +10,7 @@ export default function Landing() {
     if (localStorage.getItem("token")) {
       try {
         const valid = await axios.get(
-          "http://localhost:3000/api/v1/user/validUser",
+          "https://payment-app-topaz.vercel.app/api/v1/user/validUser",
           {
             headers: {
               Authorization: localStorage.getItem("token"),

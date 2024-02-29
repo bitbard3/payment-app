@@ -15,7 +15,7 @@ export default function AddFriendRequestList() {
   const onAddHandler = async (friendId, friendReq) => {
     try {
       await axios.post(
-        `http://localhost:3000/api/v1/user/addFriend`,
+        `https://payment-app-topaz.vercel.app/api/v1/user/addFriend`,
         { friend: friendId },
         {
           headers: { Authorization: localStorage.getItem("token") },
@@ -44,7 +44,7 @@ export default function AddFriendRequestList() {
   const onRemoveHandler = async (friendId) => {
     try {
       await axios.post(
-        `http://localhost:3000/api/v1/user/removeFriendRequest`,
+        `https://payment-app-topaz.vercel.app/api/v1/user/removeFriendRequest`,
         { friend: friendId },
         {
           headers: { Authorization: localStorage.getItem("token") },

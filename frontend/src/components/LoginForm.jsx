@@ -23,7 +23,7 @@ export default function LoginForm({ url }) {
     if (!validData.error) {
       try {
         const res = await axios.post(
-          "http://localhost:3000/api/v1/user/login",
+          "https://payment-app-topaz.vercel.app/api/v1/user/login",
           {
             username,
             password,
@@ -64,10 +64,13 @@ export default function LoginForm({ url }) {
   const testLoginHandler = async () => {
     setbuttonDisable(true);
     try {
-      const res = await axios.post("http://localhost:3000/api/v1/user/login", {
-        username: "test",
-        password: "1234",
-      });
+      const res = await axios.post(
+        "https://payment-app-topaz.vercel.app/api/v1/user/login",
+        {
+          username: "test",
+          password: "1234",
+        }
+      );
       const token = res.data.token;
       localStorage.setItem("token", `Bearer ${token}`);
       if (url) {

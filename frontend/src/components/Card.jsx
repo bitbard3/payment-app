@@ -27,7 +27,7 @@ export default function Card({}) {
     } else if (parseFloat(amount) == parseInt(amount)) {
       try {
         const addMoney = await axios.post(
-          "http://localhost:3000/api/v1/transaction/addMoney",
+          "https://payment-app-topaz.vercel.app/api/v1/transaction/addMoney",
           { amount: parseInt(amount) },
           {
             headers: { Authorization: localStorage.getItem("token") },

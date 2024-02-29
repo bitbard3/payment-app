@@ -24,7 +24,7 @@ export default function EditAccount() {
   const onClickHandler = async () => {
     try {
       await axios.put(
-        "http://localhost:3000/api/v1/user",
+        "https://payment-app-topaz.vercel.app/api/v1/user",
         {
           firstName,
           lastName,
