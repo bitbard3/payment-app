@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import EditAccountHeader from "./EditAccountHeader";
 import EditAccountInput from "./EditAccountInput";
 import EditAccountButton from "./EditAccountButton";
-import { useRecoilState } from "recoil";
+import { useRecoilValueLoadable, useSetRecoilState } from "recoil";
 import { user } from "@/stores/atom/user";
 import axios from "axios";
 import { toast, useToast } from "@/components/ui/use-toast";
@@ -10,12 +10,19 @@ import AccountView from "./AccountView";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 
 export default function EditAccount() {
-  const [userInfo, setUserInfo] = useRecoilState(user);
-  const [firstName, setFirstName] = useState(userInfo.firstName);
-  const [lastName, setLastName] = useState(userInfo.lastName);
+  const userInfo = useRecoilValueLoadable(user);
+  const setUserInfo = useSetRecoilState(user);
+  const [firstName, setFirstName] = useState(null);
+  const [lastName, setLastName] = useState(null);
   const { toast } = useToast();
   const [editAccount, setEditAccount] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  useEffect(() => {
+    if (userInfo.state !== "loading") {
+      setFirstName(userInfo.contents.firstName);
+      setLastName(userInfo.contents.lastName);
+    }
+  }, [userInfo]);
   const onFirstNameChange = (e) => {
     setFirstName(e.target.value);
   };
@@ -80,7 +87,9 @@ export default function EditAccount() {
           <div className="w-[80%] md:pl-10 h-[70%] flex flex-col justify-center gap-10 px-3 md:px-8 mt-16">
             <EditAccountInput
               disabled={true}
-              value={userInfo.username}
+              value={
+                userInfo.state == "loading" ? null : userInfo.contents.username
+              }
               label={"Username"}
               type={"text"}
               id={"usernameId"}

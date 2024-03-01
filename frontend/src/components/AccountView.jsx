@@ -1,16 +1,27 @@
 import React from "react";
 import { QRCodeCanvas } from "qrcode.react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValueLoadable } from "recoil";
+import { Skeleton } from "./ui/skeleton";
 import { user } from "@/stores/atom/user";
 export default function AccountView() {
-  const userInfo = useRecoilValue(user);
-  const url = `http://localhost:5173/user/${userInfo.username}?id=${userInfo.userId}`;
+  const userInfo = useRecoilValueLoadable(user);
+  const url = `http://localhost:5173/user/${userInfo.contents.username}?id=${userInfo.contents.userId}`;
   return (
     <div className="h-1/2 w-3/4 flex flex-col items-center relative">
       <QRCodeCanvas value={url} size={200} />
-      <p className="text-stone-400 text-lg mt-10">@{userInfo.username}</p>
+      <p className="text-stone-400 text-lg mt-10">
+        {userInfo.state == "loading" ? (
+          <Skeleton className="bg-gray-600 h-3 w-20"></Skeleton>
+        ) : (
+          "@" + userInfo.contents.username
+        )}{" "}
+      </p>
       <p className="text-light mt-2">
-        {userInfo.firstName} {userInfo.lastName}
+        {userInfo.state == "loading" ? (
+          <Skeleton className="bg-gray-600 h-3 w-20"></Skeleton>
+        ) : (
+          userInfo.contents.firstName + " " + userInfo.contents.lastName
+        )}{" "}
       </p>
     </div>
   );

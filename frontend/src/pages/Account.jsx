@@ -8,7 +8,6 @@ import Gradients from "../components/Gradients";
 import EditAccount from "../components/EditAccount";
 import { UserIcon } from "@heroicons/react/24/outline";
 export default function Account() {
-  const val = false;
   const sideBar = useRecoilValue(sideBarOpen);
   return (
     <div>
