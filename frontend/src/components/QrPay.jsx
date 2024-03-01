@@ -3,6 +3,7 @@ import { QRCodeCanvas } from "qrcode.react";
 import axios from "axios";
 import { toast, useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
+import { HomeIcon } from "@heroicons/react/24/outline";
 
 import {
   Dialog,
@@ -11,14 +12,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useRecoilStateLoadable } from "recoil";
+import { useRecoilValueLoadable, useSetRecoilState } from "recoil";
 import { user } from "@/stores/atom/user";
 export default function QrPay({ username, userId }) {
   const url = `http://localhost:5173/user/${username}?id=${userId}`;
   const [loggedUserId, setLoggedUserId] = useState("");
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState("");
-  const [userInfo, setUserInfo] = useRecoilStateLoadable(user);
+  const userInfo = useRecoilValueLoadable(user);
+  const setUserInfo = useSetRecoilState(user);
   const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
@@ -41,12 +43,32 @@ export default function QrPay({ username, userId }) {
   const onModalHandler = () => {
     setOpen(true);
   };
+  const onHomeClick = () => {
+    if (loggedUserId) {
+      navigate("/dashboard");
+    } else {
+      toast({
+        variant: "destructive",
+        description: `You are not logged in!`,
+        action: (
+          <div className="">
+            <button
+              onClick={() => navigate("/login")}
+              className="bg-light text-dark px-2 rounded-md mt-.5"
+            >
+              Login
+            </button>
+          </div>
+        ),
+      });
+    }
+  };
   const onPayHandler = async () => {
     setDisabled(true);
     if (!loggedUserId) {
       toast({
         variant: "destructive",
-        description: `You are not logged in`,
+        description: `You are not logged in!`,
         action: (
           <div className="">
             <button
@@ -79,14 +101,12 @@ export default function QrPay({ username, userId }) {
           headers: { Authorization: localStorage.getItem("token") },
         }
       );
-      setUserInfo({
-        balance: userInfo.contents.amount - parseInt(amount),
-        transactionsLength: userInfo.contents.transactionsLength + 1,
-        transactions: [
-          ...userInfo.contents.transactions,
-          transfer.data.transactionInfo[0],
-        ],
-      });
+      setUserInfo((prev) => ({
+        ...prev,
+        balance: prev.balance - parseInt(amount),
+        transactionsLength: prev.transactionsLength + 1,
+        transactions: [...prev.transactions, transfer.data.transactionInfo[0]],
+      }));
       toast({
         variant: "success",
         description: `Money transfered successfully`,
@@ -111,6 +131,7 @@ export default function QrPay({ username, userId }) {
       }
     } finally {
       setDisabled(false);
+      setOpen(false);
     }
   };
   return (
@@ -128,6 +149,12 @@ export default function QrPay({ username, userId }) {
             Pay
           </button>
         </div>
+        <button className="absolute top-[7%] left-7">
+          <HomeIcon
+            onClick={onHomeClick}
+            className="h-9 w-9 text-neutral-200"
+          />
+        </button>
       </div>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>

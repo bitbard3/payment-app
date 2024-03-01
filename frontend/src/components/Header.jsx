@@ -6,7 +6,6 @@ import { useRecoilValueLoadable } from "recoil";
 import { user } from "@/stores/atom/user";
 import { QrCodeIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
-import { Skeleton } from "@/components/ui/skeleton";
 import {
   Popover,
   PopoverContent,
@@ -22,7 +21,6 @@ export default function Header({ icon, text }) {
         <NavButton></NavButton>
       </span>
       <HeaderHeading text={text}></HeaderHeading>
-
       <div className="ms-auto flex items-center justify-center relative">
         <button
           onClick={() => navigate("/account")}
@@ -50,10 +48,6 @@ export default function Header({ icon, text }) {
             />
           </PopoverContent>
         </Popover>
-        {userAtomLoadable.state === "hasValue" &&
-          userAtomLoadable.contents.friendRequestsLength > 0 && (
-            <div className="bg-[#b73a3a] absolute h-3 w-3 rounded-full top-[2px] -left-[3px]"></div>
-          )}
       </div>
     </div>
   );
