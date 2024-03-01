@@ -6,6 +6,7 @@ import { useRecoilValueLoadable } from "recoil";
 import { user } from "@/stores/atom/user";
 import { useNavigate } from "react-router-dom";
 import transactions from "../images/transactions.svg";
+import { Skeleton } from "./ui/skeleton";
 export default function TransactionsBox() {
   const userAtomLoadable = useRecoilValueLoadable(user);
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function TransactionsBox() {
   return (
     <>
       {userAtomLoadable.state === "loading" ? (
-        <p>Loading...</p>
+        <Skeleton className="h-full w-full bg-gray-600"></Skeleton>
       ) : userAtomLoadable.contents.transactionsLength === 0 ? (
         <div className="flex flex-col justify-center items-center gap-10">
           <p className="md:text-lg font-medium text-light">
