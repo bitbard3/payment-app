@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import NavItemsList from "../components/NavItemsList";
 import Card from "../components/Card";
 import Money from "../components/Money";
@@ -8,33 +8,7 @@ import { sideBarOpen } from "../stores/atom/sideBar";
 import MobileNav from "../components/MobileNav";
 import Gradients from "../components/Gradients";
 import { UserIcon } from "@heroicons/react/24/outline";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { toast, useToast } from "@/components/ui/use-toast";
 export default function Dashboard() {
-  const { toast } = useToast();
-  const navigate = useNavigate();
-  useEffect(() => {
-    async function user() {
-      try {
-        const res = await axios.get(
-          "https://payment-app-topaz.vercel.app/api/v1/user/validUser",
-          {
-            headers: {
-              Authorization: localStorage.getItem("token"),
-            },
-          }
-        );
-      } catch (error) {
-        navigate("/");
-        toast({
-          variant: "destructive",
-          description: `You are not logged in/authorized`,
-        });
-      }
-    }
-    user();
-  }, []);
   const sideBar = useRecoilValue(sideBarOpen);
   return (
     <div>
