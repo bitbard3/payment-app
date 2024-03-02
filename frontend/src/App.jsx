@@ -8,19 +8,23 @@ import Payment from "./pages/Payment";
 import Transactions from "./pages/Transactions";
 import Error404 from "./pages/Error404";
 import UserQr from "./pages/UserQr";
+import PrivateRoutes from "./utils/PrivateRoutes";
 function App() {
   return (
     <>
       <Routes>
-        <Route path="*" Component={Error404} />
-        <Route path="/" Component={Landing}></Route>
-        <Route path="/signup" Component={Signup}></Route>
-        <Route path="/login" Component={Login}></Route>
-        <Route path="/dashboard" Component={Dashboard}></Route>
-        <Route path="/account" Component={Account}></Route>
-        <Route path="/payment" Component={Payment}></Route>
-        <Route path="/transactions" Component={Transactions}></Route>
-        <Route path="/user/:username" Component={UserQr}></Route>
+        <Route path="*" element={<Error404 />} />
+        <Route path="/" element={<Landing />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/user/:username" element={<UserQr />}></Route>
+
+        <Route element={<PrivateRoutes />}>
+          <Route path="/dashboard" element={<Dashboard />}></Route>
+          <Route path="/account" element={<Account />}></Route>
+          <Route path="/payment" element={<Payment />}></Route>
+          <Route path="/transactions" element={<Transactions />}></Route>
+        </Route>
       </Routes>
     </>
   );
