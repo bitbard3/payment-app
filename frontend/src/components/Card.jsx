@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CardValue from "./CardValue";
-import { useRecoilValueLoadable } from "recoil";
+import { useRecoilValueLoadable, useSetRecoilState } from "recoil";
 import { user } from "@/stores/atom/user";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { toast, useToast } from "@/components/ui/use-toast";
@@ -15,6 +15,7 @@ import {
 export default function Card({}) {
   const [disabled, setDisabled] = useState(false);
   const userAtomLoadable = useRecoilValueLoadable(user);
+  const setUserInfo = useSetRecoilState(user);
   const { toast } = useToast();
   const [amount, setAmount] = useState("");
   const [open, setOpen] = useState(false);

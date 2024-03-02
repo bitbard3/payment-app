@@ -54,7 +54,7 @@ export default function QrPay({ username, userId }) {
           <div className="">
             <button
               onClick={() => navigate("/login")}
-              className="bg-light text-dark px-2 rounded-md mt-.5"
+              className="bg-light text-dark px-2 rounded-md mt-.5  border-stone-600 border-[3px]"
             >
               Login
             </button>
@@ -75,7 +75,7 @@ export default function QrPay({ username, userId }) {
               onClick={() =>
                 navigate("/login", { state: `/user/${username}?id=${userId}` })
               }
-              className="bg-light text-dark px-2 rounded-md mt-.5"
+              className="bg-light text-dark px-2 rounded-md mt-.5  border-stone-600 border-[3px]"
             >
               Login
             </button>
