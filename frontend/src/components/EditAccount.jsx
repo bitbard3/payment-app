@@ -33,7 +33,7 @@ export default function EditAccount() {
     setDisabled(true);
     try {
       await axios.put(
-        "https://payment-app-topaz.vercel.app/api/v1/user",
+        "https://payment-app-red.vercel.app/api/v1/user",
         {
           firstName,
           lastName,

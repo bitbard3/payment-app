@@ -12,7 +12,7 @@ const PrivateRoutes = () => {
         const token = localStorage.getItem("token");
         if (!token) throw new Error("Token not found");
         const res = await axios.get(
-          "https://payment-app-topaz.vercel.app/api/v1/user/validUser",
+          "https://payment-app-red.vercel.app/api/v1/user/validUser",
           {
             headers: {
               Authorization: token,

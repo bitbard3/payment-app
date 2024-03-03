@@ -37,7 +37,7 @@ export default function SignupForm() {
     if (!validData.error) {
       try {
         const res = await axios.post(
-          "https://payment-app-topaz.vercel.app/api/v1/user/signup",
+          "https://payment-app-red.vercel.app/api/v1/user/signup",
           {
             firstName,
             lastName,

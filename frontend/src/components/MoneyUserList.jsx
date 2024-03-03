@@ -26,7 +26,7 @@ export default function MoneyUserList() {
     setDisabled(true);
     try {
       const transfer = await axios.post(
-        "https://payment-app-topaz.vercel.app/api/v1/transaction/transfer",
+        "https://payment-app-red.vercel.app/api/v1/transaction/transfer",
         { receiver: friend, amount: parseInt(amount) },
         {
           headers: { Authorization: localStorage.getItem("token") },

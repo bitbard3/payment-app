@@ -29,7 +29,7 @@ export default function QrPay({ username, userId }) {
         return;
       }
       const res = await axios.get(
-        "https://payment-app-topaz.vercel.app/api/v1/user/validUser",
+        "https://payment-app-red.vercel.app/api/v1/user/validUser",
         {
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -95,7 +95,7 @@ export default function QrPay({ username, userId }) {
     }
     try {
       const transfer = await axios.post(
-        "https://payment-app-topaz.vercel.app/api/v1/transaction/transfer",
+        "https://payment-app-red.vercel.app/api/v1/transaction/transfer",
         { receiver: userId, amount: parseInt(amount) },
         {
           headers: { Authorization: localStorage.getItem("token") },
