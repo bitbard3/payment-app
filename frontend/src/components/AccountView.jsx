@@ -5,7 +5,7 @@ import { Skeleton } from "./ui/skeleton";
 import { user } from "@/stores/atom/user";
 export default function AccountView() {
   const userInfo = useRecoilValueLoadable(user);
-  const url = `http://localhost:5173/user/${userInfo.contents.username}?id=${userInfo.contents.userId}`;
+  const url = `https://qr-pay-six.vercel.app/user/${userInfo.contents.username}?id=${userInfo.contents.userId}`;
   return (
     <div className="h-1/2 w-3/4 flex flex-col items-center relative">
       <QRCodeCanvas value={url} size={200} />
