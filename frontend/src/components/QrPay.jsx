@@ -112,7 +112,6 @@ export default function QrPay({ username, userId }) {
         description: `Money transfered successfully`,
       });
     } catch (error) {
-      console.log(error);
       if (error.response.status == 400) {
         toast({
           variant: "destructive",
