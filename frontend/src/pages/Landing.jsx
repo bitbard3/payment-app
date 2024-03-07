@@ -4,6 +4,7 @@ import heroImg from "../images/hero.svg";
 import { useNavigate } from "react-router-dom";
 import { startTransition } from "react";
 import axios from "axios";
+import { MovingBorder } from "@/components/ui/MovingBorder";
 export default function Landing() {
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(false);
@@ -52,7 +53,13 @@ export default function Landing() {
           </p>
           <div className="flex items-center md:justify-center mt-9 md:mt-16 w-3/5">
             <div className="relative overflow-hidden p-px rounded-lg">
-              <div className="glow md:w-[70px] w-[60px] h-[60px] md:h-[70px] absolute rotate-45 hover:scale-110 delay-150"></div>
+              <MovingBorder duration={2700}>
+                <div
+                  className={
+                    "lg:h-[7.5rem] h-20 w-20  lg:w-[7.5rem] opacity-[0.8] bg-[radial-gradient(var(--yellow)_40%,transparent_60%)]"
+                  }
+                />
+              </MovingBorder>
               <button
                 onClick={onClickHandler}
                 className="text-light flex items-center hero-button  text-sm md:text-base  space-y-2  bg-dark  rounded-lg z-10 relative px-7 md:px-10 px-md:16 py-3 delay-150"
