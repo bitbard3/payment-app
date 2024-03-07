@@ -7,7 +7,6 @@ import {
   useTransform,
 } from "framer-motion";
 import { cn } from "@/utils/cn";
-
 export function Button({
   borderRadius = "1.75rem",
   children,
@@ -17,11 +16,14 @@ export function Button({
   className,
   loadingChildren,
   onClick,
+  disabled,
   ...otherProps
 }) {
+  const screenX = window.innerWidth;
   return (
     <button
       onClick={onClick}
+      disabled={disabled}
       className={cn(
         "bg-transparent  relative text-xl w-32  h-12 lg:w-40 p-[1px] overflow-hidden ",
         containerClassName
@@ -32,17 +34,21 @@ export function Button({
       {...otherProps}
     >
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 hidden lg:block"
         style={{ borderRadius: `calc(${borderRadius} * 0.96)` }}
       >
-        <MovingBorder duration={duration} rx="30%" ry="30%">
-          <div
-            className={cn(
-              "h-20 w-20 opacity-[0.8] bg-[radial-gradient(var(--yellow)_40%,transparent_60%)]",
-              borderClassName
-            )}
-          />
-        </MovingBorder>
+        {screenX > "1023" ? (
+          <MovingBorder duration={duration} rx="30%" ry="30%">
+            <div
+              className={cn(
+                "h-20 w-20 opacity-[0.8] bg-[radial-gradient(var(--yellow)_40%,transparent_60%)]",
+                borderClassName
+              )}
+            />
+          </MovingBorder>
+        ) : (
+          ``
+        )}
       </div>
 
       <div
