@@ -3,9 +3,64 @@ import {
   motion,
   useAnimationFrame,
   useMotionValue,
-  useTransform,
   useMotionTemplate,
+  useTransform,
 } from "framer-motion";
+import { cn } from "@/utils/cn";
+
+export function Button({
+  borderRadius = "1.75rem",
+  children,
+  containerClassName,
+  borderClassName,
+  duration,
+  className,
+  loadingChildren,
+  onClick,
+  ...otherProps
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        "bg-transparent  relative text-xl w-32  h-12 lg:w-40 p-[1px] overflow-hidden ",
+        containerClassName
+      )}
+      style={{
+        borderRadius: borderRadius,
+      }}
+      {...otherProps}
+    >
+      <div
+        className="absolute inset-0"
+        style={{ borderRadius: `calc(${borderRadius} * 0.96)` }}
+      >
+        <MovingBorder duration={duration} rx="30%" ry="30%">
+          <div
+            className={cn(
+              "h-20 w-20 opacity-[0.8] bg-[radial-gradient(var(--yellow)_40%,transparent_60%)]",
+              borderClassName
+            )}
+          />
+        </MovingBorder>
+      </div>
+
+      <div
+        className={cn(
+          "relative bg-slate-900/[0.8] border border-slate-800 backdrop-blur-xl text-white flex items-center justify-center w-full h-full text-sm antialiased z-10",
+          className
+        )}
+        style={{
+          borderRadius: `calc(${borderRadius} * 0.96)`,
+        }}
+      >
+        {loadingChildren && disabled && loadingChildren}
+        {!loadingChildren && children}
+      </div>
+    </button>
+  );
+}
+
 export const MovingBorder = ({
   children,
   duration = 2000,
@@ -49,8 +104,8 @@ export const MovingBorder = ({
           fill="none"
           width="100%"
           height="100%"
-          rx={0}
-          ry={0}
+          rx={rx}
+          ry={ry}
           ref={pathRef}
         />
       </svg>
