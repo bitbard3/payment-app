@@ -58,14 +58,13 @@ export default function Landing() {
               children={"Get Started"}
               duration={3000}
               borderRadius="10px"
+              disabled={disabled}
               loadingChildren={
-                disabled && (
-                  <div
-                    className="animate-spin  mr-3 inline-block size-5 border-[3px] border-current border-t-transparent rounded-full"
-                    role="status"
-                    aria-label="loading"
-                  ></div>
-                )
+                <div
+                  className="animate-spin  mr-3 inline-block size-5 border-[3px] border-current border-t-transparent rounded-full"
+                  role="status"
+                  aria-label="loading"
+                ></div>
               }
             />
           </div>

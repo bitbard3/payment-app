@@ -25,7 +25,7 @@ export function Button({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        "bg-transparent  relative text-xl w-32  h-12 lg:w-40 p-[1px] overflow-hidden ",
+        "bg-transparent  relative text-xl w-32  h-12 lg:w-40 p-[1px] overflow-hidden border border-yellow border-opacity-70 md:border-0",
         containerClassName
       )}
       style={{
@@ -60,8 +60,8 @@ export function Button({
           borderRadius: `calc(${borderRadius} * 0.96)`,
         }}
       >
-        {loadingChildren && disabled && loadingChildren}
-        {!loadingChildren && children}
+        {disabled && loadingChildren}
+        {children}
       </div>
     </button>
   );
