@@ -23,7 +23,7 @@ export default function LoginForm({ url }) {
     if (!validData.error) {
       try {
         const res = await axios.post(
-          "https://payment-app-red.vercel.app/api/v1/user/login",
+          `${import.meta.env.VITE_URL}/api/v1/user/login`,
           {
             username,
             password,
@@ -65,7 +65,7 @@ export default function LoginForm({ url }) {
     setbuttonDisable(true);
     try {
       const res = await axios.post(
-        "https://payment-app-red.vercel.app/api/v1/user/login",
+        `${import.meta.env.VITE_URL}/api/v1/user/login`,
         {
           username: "test",
           password: "1234",

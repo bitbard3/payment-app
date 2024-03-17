@@ -33,7 +33,7 @@ export default function EditAccount() {
     setDisabled(true);
     try {
       await axios.put(
-        "https://payment-app-red.vercel.app/api/v1/user",
+        `${import.meta.env.VITE_URL}/api/v1/user`,
         {
           firstName,
           lastName,

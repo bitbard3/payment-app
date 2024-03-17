@@ -13,7 +13,7 @@ export default function Landing() {
       setDisabled(true);
       try {
         const valid = await axios.get(
-          "https://payment-app-red.vercel.app/api/v1/user/validUser",
+          `${import.meta.env.VITE_URL}/api/v1/user/validUser`,
           {
             headers: {
               Authorization: localStorage.getItem("token"),

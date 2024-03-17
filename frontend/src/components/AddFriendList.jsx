@@ -40,7 +40,7 @@ export default function AddFriendList({ friends }) {
   const onClickHandler = async (friendId) => {
     try {
       const sendFriendReq = await axios.post(
-        "https://payment-app-red.vercel.app/api/v1/user/addFriendRequest",
+        `${import.meta.env.VITE_URL}/api/v1/user/addFriendRequest`,
         { friend: friendId },
         {
           headers: {
@@ -68,7 +68,7 @@ export default function AddFriendList({ friends }) {
     setDisabled(true);
     try {
       const transfer = await axios.post(
-        "https://payment-app-red.vercel.app/api/v1/transaction/transfer",
+        `${import.meta.env.VITE_URL}/api/v1/transaction/transfer`,
         { receiver: friend, amount: parseInt(amount) },
         {
           headers: { Authorization: localStorage.getItem("token") },

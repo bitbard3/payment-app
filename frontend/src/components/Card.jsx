@@ -12,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-export default function Card({}) {
+export default function Card({ }) {
   const [disabled, setDisabled] = useState(false);
   const userAtomLoadable = useRecoilValueLoadable(user);
   const setUserInfo = useSetRecoilState(user);
@@ -29,7 +29,7 @@ export default function Card({}) {
     } else if (parseFloat(amount) == parseInt(amount)) {
       try {
         const addMoney = await axios.post(
-          "https://payment-app-red.vercel.app/api/v1/transaction/addMoney",
+          `${import.meta.env.VITE_URL}/api/v1/transaction/addMoney`,
           { amount: parseInt(amount) },
           {
             headers: { Authorization: localStorage.getItem("token") },

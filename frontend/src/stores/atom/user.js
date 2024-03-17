@@ -6,11 +6,11 @@ export const fetchUser = selector({
     get: async ({ get }) => {
         try {
             const user = await axios.get(
-                "https://payment-app-red.vercel.app/api/v1/user/userInfo",
+                `${import.meta.env.VITE_URL}/api/v1/user/userInfo`,
                 { headers: { Authorization: localStorage.getItem("token") } }
             );
             const transactions = await axios.get(
-                "https://payment-app-red.vercel.app/api/v1/transaction/transactions",
+                `${import.meta.env.VITE_URL}/api/v1/transaction/transactions`,
                 { headers: { Authorization: localStorage.getItem("token") } }
             );
             const userAccount = {

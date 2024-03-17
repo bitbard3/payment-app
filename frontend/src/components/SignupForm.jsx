@@ -37,7 +37,7 @@ export default function SignupForm() {
     if (!validData.error) {
       try {
         const res = await axios.post(
-          "https://payment-app-red.vercel.app/api/v1/user/signup",
+          `${import.meta.env.VITE_URL}/api/v1/user/signup`,
           {
             firstName,
             lastName,
@@ -78,18 +78,16 @@ export default function SignupForm() {
         <div className="flex mt-14 md:mt-20 w-6/12 justify-around">
           <button onClick={() => setPage(0)}>
             <div
-              className={`rounded-full border border-light p-1.5 hover:scale-110 duration-200 ${
-                page == 0 ? `bg-purple hover:scale-100` : ``
-              }`}
+              className={`rounded-full border border-light p-1.5 hover:scale-110 duration-200 ${page == 0 ? `bg-purple hover:scale-100` : ``
+                }`}
             >
               <UserIcon className="h-6 text-neutral-200"></UserIcon>
             </div>
           </button>
           <button className="" onClick={handleNextButton} disabled={page >= 1}>
             <div
-              className={`rounded-full border border-light p-1.5 hover:scale-110 duration-200 ${
-                page == 1 ? `bg-purple hover:scale-100` : ``
-              }`}
+              className={`rounded-full border border-light p-1.5 hover:scale-110 duration-200 ${page == 1 ? `bg-purple hover:scale-100` : ``
+                }`}
             >
               <EnvelopeIcon className="h-6 text-neutral-200"></EnvelopeIcon>
             </div>
@@ -153,9 +151,8 @@ export default function SignupForm() {
         <div className="h-[30%] w-1 my-5"></div>
       </div>
       <div
-        className={`opacity-60 absolute left-[13%] bottom-[5%] md:bottom-[10%] ${
-          page == 0 ? `hidden` : ``
-        }`}
+        className={`opacity-60 absolute left-[13%] bottom-[5%] md:bottom-[10%] ${page == 0 ? `hidden` : ``
+          }`}
       >
         <FormButton
           onClick={() => setPage((curr) => curr - 1)}
