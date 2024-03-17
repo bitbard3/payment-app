@@ -36,7 +36,7 @@ export default function Landing() {
     <div>
       <div className="h-screen w-screen bg-dark relative overflow-hidden">
         <div className="flex flex-col h-full w-full md:items-center md:px-0 px-4 justify-center">
-          <h1 className="hero text-light md:text-center text-[2rem] leading-[3rem] md:text-5xl md:leading-[5rem] lg:text-6xl lg:leading-[5.5rem]">
+          <h1 className="hero text-light md:text-center text-[2rem] leading-[3rem] md:text-5xl md:leading-[5rem] lg:text-6xl lg:leading-[5.5rem] lg:pt-16 xl:pt-0">
             Secure{" "}
             <span className="yellow-word border border-b-yellow border-x-0 border-t-0 md:pl-2 border-b-[4px]">
               Payments
@@ -69,7 +69,7 @@ export default function Landing() {
             />
           </div>
           <div className="md:h-52 h-32"></div>
-          <div className=" absolute bottom-0">
+          <div className=" absolute bottom-0 lg:hidden xl:block">
             <img src={heroImg} className="heroImg" />
           </div>
           <div className="bottom-1/4 absolute -left-20 bg-yellow w-1/6 h-1/2 bg-opacity-60 rounded-full blur-[190px]"></div>
