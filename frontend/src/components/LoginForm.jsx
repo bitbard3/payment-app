@@ -93,7 +93,7 @@ export default function LoginForm({ url }) {
     }
   };
   return (
-    <div className="h-[80%] md:h-[70%] w-[90%] md:w-2/3 lg:w-[40%] lg:h-[90%] xl:w-1/3 xl:h-[80%] border relative border-stone-500 border-opacity-80 rounded-lg py-20 form">
+    <div className="h-[80%] md:h-[70%] w-[90%] md:w-2/3 lg:w-[60%] lg:max-w-[400px] lg:h-[90%] lg:max-h-[800px] xl:w-1/3 xl:h-[80%] border relative border-stone-500 border-opacity-80 rounded-lg py-20 form">
       <div className="flex flex-col justify-around items-center h-full">
         <FormTitle title={"Login!"}></FormTitle>
         <div className="flex mt-14 md:mt-20 w-6/12 justify-around">
