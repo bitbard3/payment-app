@@ -20,7 +20,7 @@ export default function EditAccountInput({
           disabled={disabled}
           value={value}
           onChange={onChange}
-          className=" bg-transparent disabled:text-neutral-500 border-b-light text-light border border-t-0 border-x-0 disabled:border-b-neutral-500 w-full focus:outline-0 mt-3"
+          className=" bg-transparent disabled:text-neutral-500 border-b-light text-light border border-t-0 border-x-0 disabled:border-b-neutral-500 w-full focus:outline-0 mt-3 lg:mt-0 xl:mt-3"
         />
       ) : (
         <Skeleton className="w-full h-4 bg-gray-600"></Skeleton>
