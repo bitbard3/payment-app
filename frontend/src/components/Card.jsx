@@ -26,6 +26,7 @@ export default function Card({ }) {
         variant: "destructive",
         description: `Invalid Amount`,
       });
+      setDisabled(false);
     } else if (parseFloat(amount) == parseInt(amount)) {
       try {
         const addMoney = await axios.post(
