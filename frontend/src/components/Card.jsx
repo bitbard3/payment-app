@@ -50,8 +50,8 @@ export default function Card({ }) {
           description: `Something went wrong`,
         });
       } finally {
-        setDisabled(false);
         setOpen(false);
+        setTimeout(() => setDisabled(false), 200)
       }
     } else {
       toast({
